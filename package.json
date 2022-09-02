@@ -1,38 +1,42 @@
 {
-  "name": "cim-douro-app",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint ."
-  },
-  "dependencies": {
-    "react": "18.0.0",
-    "react-native": "0.69.4"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/runtime": "^7.12.5",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "babel-jest": "^26.6.3",
-    "eslint": "^8.23.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard-with-typescript": "^22.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.5",
-    "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-react": "^7.31.1",
-    "eslint-plugin-react-native": "^4.0.0",
-    "jest": "^26.6.3",
-    "metro-react-native-babel-preset": "^0.70.3",
-    "prettier": "2.7.1",
-    "react-test-renderer": "18.0.0",
-    "typescript": "^4.8.2"
-  },
-  "jest": {
-    "preset": "react-native"
-  }
+	"name": "cim-douro-app",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"android": "react-native run-android",
+		"ios": "react-native run-ios",
+		"start": "npx expo start",
+		"test": "jest",
+		"lint": "eslint ."
+	},
+	"dependencies": {
+		"expo": "^46.0.10",
+		"react": "18.0.0",
+		"react-native": "0.69.5"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.9",
+		"@babel/runtime": "^7.12.5",
+		"@types/react": "^18.0.18",
+		"@types/react-native": "^0.69.6",
+		"@typescript-eslint/eslint-plugin": "^5.36.1",
+		"babel-jest": "^26.6.3",
+		"eslint": "^8.23.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsx-a11y": "^6.6.1",
+		"eslint-plugin-n": "^15.2.5",
+		"eslint-plugin-promise": "^6.0.1",
+		"eslint-plugin-react": "^7.31.1",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-native": "^4.0.0",
+		"jest": "^26.6.3",
+		"metro-react-native-babel-preset": "^0.70.3",
+		"prettier": "2.7.1",
+		"react-test-renderer": "18.0.0"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
 }
