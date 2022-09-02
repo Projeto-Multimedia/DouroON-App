@@ -8,9 +8,9 @@ React Native CLI after if you want to use an emulator.
 # Dependencies
 npm install
 
-# Run Android
-npx react-native run-android
+# Run Expo
+npm start
 
-# Run iOS
-npx react-native run-ios
+# Run Virtual Emulator (Android)
+npm run android
 ```
