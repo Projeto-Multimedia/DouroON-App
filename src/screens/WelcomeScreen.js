@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import TestUser from '../components/TestUser';
+import { UserList } from '../components/UserList';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -11,7 +11,7 @@ const WelcomeScreen = () => {
 
     return ( 
         <View>
-            <TestUser></TestUser>
+            <UserList />
             <View style={styles.textContainer}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Signup')}>
                 <Text style={[styles.text, {
