@@ -1,4 +1,6 @@
-import apiProvider from './provider';
+// core.js
+
+import { apiProvider } from './provider';
 
 export class ApiCore {
   constructor(options) {

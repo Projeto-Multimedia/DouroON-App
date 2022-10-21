@@ -1,18 +1,23 @@
+// response.js
+
 export function handleResponse(response) {
-    if (response.results) {
-      return response.results;
-    }
-  
-    if (response.data) {
-      return response.data;
-    }
-  
-    return response;
+
+  const responseJson = response.json();
+
+  if (response.results) {
+    return responseJson.results;
   }
-  
-  export function handleError(error) {
-    if (error.data) {
-      return error.data;
-    }
-    return error;
+
+  if (response.data) {
+    return responseJson.data;
   }
+
+  return responseJson;
+}
+
+export function handleError(error) {
+  if (error.data) {
+    return error.data;
+  }
+  return error;
+}
