@@ -17,8 +17,8 @@ export class ApiCore {
     }
 
     if (options.post) {
-      this.post = (model) => {
-        return apiProvider.post(options.url, model);
+      this.post = (model, optional) => {
+        return apiProvider.post(options.url, model, optional);
       };
     }
 

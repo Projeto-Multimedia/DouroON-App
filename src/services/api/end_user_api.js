@@ -2,7 +2,7 @@ import { ApiCore } from "./utilities/core";
 
 // User API
 
-const url = 'end-users';
+let url = 'end-users';
 const plural = 'end-users';
 const single = 'end-user';
 
@@ -11,13 +11,13 @@ const single = 'end-user';
 const apiEndUsers = new ApiCore({
   getAll: true,
   getSingle: true,
-  post: false,
+  post: true,
   put: false,
   patch: false,
   delete: false,
   url: url,
   plural: plural,
-  single: single
+  single: single,
 });
 
 apiEndUsers.massUpdate = () => {

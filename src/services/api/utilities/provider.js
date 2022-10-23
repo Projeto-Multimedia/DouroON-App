@@ -23,8 +23,8 @@ const getSingle = (resource, id) => {
 
 /** @param {string} resource */ 
 /** @param {object} model */ 
-const post = (resource, model) => { 
-  return fetch(`${BASE_URL}/${resource}`, {
+const post = (resource, model, optional = '') => { 
+  return fetch(`${BASE_URL}/${resource}/${optional}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(model),
