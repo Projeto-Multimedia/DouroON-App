@@ -5,6 +5,7 @@ import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/
 
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import Signup from "./src/screens/Signup";
+import ProfileSetup from "./src/screens/ProfileSetup";
 
 const Stack = createStackNavigator();
 
@@ -19,8 +20,10 @@ const AppNavigator = () => {
 				headerShown: false,
 			}}
 		>
+			{}
 			<Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
+      		<Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
+			<Stack.Screen name="ProfileSetup" component={ProfileSetup} options={{ headerShown: false }} />
 		</Stack.Navigator>
 	);
 };

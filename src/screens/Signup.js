@@ -2,8 +2,6 @@ import { TextInput, Text, View, Dimensions, TouchableOpacity } from 'react-nativ
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import apiEndUsers from '../services/api/end_user_api';
-
 const Signup = () => {
   const navigation = useNavigation();
 
@@ -13,14 +11,6 @@ const Signup = () => {
     email: '',
     password: '',
   });
-
-  function _createEndUser(end_user) {
-    apiEndUsers.post(end_user, 'register').then((res) => {
-      let arr = res;
-      setEndUser(arr);
-      console.log(arr);
-    });
-  }
 
   return (
   <View className="flex items-center justify-center h-screen">
@@ -43,7 +33,7 @@ const Signup = () => {
           ></TextInput>
           <TouchableOpacity
             className="bg-cyan-900 rounded-2xl px-4 py-2"
-            onPress={() => _createEndUser(end_user)}
+            onPress={() => navigation.navigate("ProfileSetup")}
           >
             <Text className="text-neutral-50 text-center text-xl">Next</Text>
           </TouchableOpacity>
