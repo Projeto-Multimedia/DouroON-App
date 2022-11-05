@@ -1,23 +1,22 @@
 // response.js
 
 export function handleResponse(response) {
+	const responseJson = response.json();
 
-  const responseJson = response.json();
+	if (response.results) {
+		return responseJson.results;
+	}
 
-  if (response.results) {
-    return responseJson.results;
-  }
+	if (response.data) {
+		return responseJson.data;
+	}
 
-  if (response.data) {
-    return responseJson.data;
-  }
-
-  return responseJson;
+	return responseJson;
 }
 
 export function handleError(error) {
-  if (error.data) {
-    return error.data;
-  }
-  return error;
+	if (error.data) {
+		return error.data;
+	}
+	return error;
 }
