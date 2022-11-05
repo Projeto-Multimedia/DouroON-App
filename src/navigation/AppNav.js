@@ -33,9 +33,11 @@ const AppNavigator = () => {
 const AppNav = () => {
 	const { isLoading, userToken } = useContext(AuthContext);
 	if (isLoading) {
-		<View>
-			<ActivityIndicator size="large" color="#0000ff" />
-		</View>;
+		return (
+			<View style={{ justifyContent: "center" }}>
+				<ActivityIndicator size="large" color="#0000ff" />
+			</View>
+		);
 	}
 	return (
 		<NavigationContainer>{userToken !== null ? <Home /> : <AppNavigator />}</NavigationContainer>
