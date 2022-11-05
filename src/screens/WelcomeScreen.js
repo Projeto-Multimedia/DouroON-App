@@ -1,7 +1,6 @@
 import { Text, View, Dimensions, TouchableOpacity, ImageBackground, Image } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { UserList } from "../components/UserList";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
