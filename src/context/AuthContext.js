@@ -1,17 +1,24 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ApiCore } from "./utilities/core";
+
+import apiEndUsers from "../services/api/end_user_api";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [userToken, setUserToken] = useState(null);
+	const [endUserInfo, setEndUserInfo] = useState(null);
 
-	const login = () => {
+	const login = (end_user) => {
 		setIsLoading(true);
-		setUserToken("asdf");
-		AsyncStorage.setItem("userToken", "asdf");
+		apiEndUsers.post(end_user, "login").then((res) => {
+			setEndUserInfo(res);
+			setUserToken(res.token);
+			console.log('User token: ' + res.token);
+		});
+		// setUserToken("asdf");
+		// AsyncStorage.setItem("userToken", "asdf");
 		setIsLoading(false);
 	};
 

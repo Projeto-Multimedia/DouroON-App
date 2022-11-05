@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
+import { AuthContext } from "../context/AuthContext";
+import { View, ActivityIndicator } from "react-native";
+
 import WelcomeScreen from "../screens/WelcomeScreen";
 import Signup from "../screens/Signup";
 import SignIn from "../screens/SignIn";
 import ProfileSetup from "../screens/ProfileSetup";
 import Home from "../screens/Home";
-import { AuthContext } from "../context/AuthContext";
-import { View, ActivityIndicator } from "react-native";
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {

@@ -1,7 +1,7 @@
 // response.js
 
 export function handleResponse(response) {
-	const responseJson = response.json();
+	const responseJson = response.text();
 
 	if (response.results) {
 		return responseJson.results;
