@@ -32,7 +32,7 @@ const AppNavigator = () => {
 	);
 };
 const AppNav = () => {
-	const { isLoading, userToken } = useContext(AuthContext);
+	const { isLoading, endUserToken } = useContext(AuthContext);
 	if (isLoading) {
 		return (
 			<View style={{ justifyContent: "center" }}>
@@ -41,7 +41,7 @@ const AppNav = () => {
 		);
 	}
 	return (
-		<NavigationContainer>{userToken !== null ? <Home /> : <AppNavigator />}</NavigationContainer>
+		<NavigationContainer>{endUserToken !== null ? <Home /> : <AppNavigator />}</NavigationContainer>
 	);
 };
 

@@ -7,34 +7,51 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [userToken, setUserToken] = useState(null);
+	const [endUserToken, setEndUserToken] = useState(null);
 	const [endUserInfo, setEndUserInfo] = useState(null);
 
 	const login = (end_user) => {
 		setIsLoading(true);
 		apiEndUsers.post(end_user, "login").then((res) => {
-			setEndUserInfo(res);
-			setUserToken(res.token);
-			console.log('User token: ' + res.token);
+			let endUserInfo = res.data;
+
+			if (res.status !== 200) {
+				console.log("Error:", res.status + " - " + res.message);
+			}
+			else {
+				setEndUserInfo(endUserInfo);
+				setEndUserToken(endUserInfo.token);
+				AsyncStorage.setItem("endUserToken", endUserInfo.token);
+				AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
+			}
 		});
-		// setUserToken("asdf");
-		// AsyncStorage.setItem("userToken", "asdf");
+
 		setIsLoading(false);
 	};
 
 	const logout = () => {
 		setIsLoading(true);
-		setUserToken(null);
-		AsyncStorage.removeItem("userToken");
+		setEndUserToken(null);
+		AsyncStorage.removeItem("endUserInfo");
+		AsyncStorage.removeItem("endUserToken");
 		setIsLoading(false);
+		console.log("Logged out");
 	};
 
 	const isLoggedIn = async () => {
 		try {
 			setIsLoading(true);
-			let userToken = await AsyncStorage.getItem("userToken");
-			setUserToken(userToken);
+			let endUserInfo = await AsyncStorage.getItem("endUserInfo");
+			let endUserToken = await AsyncStorage.getItem("endUserToken");
+
+			endUserInfo = JSON.parse(endUserInfo);
+
+			if (endUserInfo) {
+				setEndUserToken(endUserToken);
+				setEndUserInfo(endUserInfo);
+			}
 			setIsLoading(false);
+
 		} catch (e) {
 			console.log("IsLoggedIn error: ", e);
 		}
@@ -45,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ login, logout, isLoading, userToken }}>
+		<AuthContext.Provider value={{ login, logout, isLoading, endUserToken, endUserInfo }}>
 			{children}
 		</AuthContext.Provider>
 	);
