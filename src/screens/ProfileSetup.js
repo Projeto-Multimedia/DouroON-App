@@ -1,10 +1,16 @@
 import { TextInput, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { useRoute } from '@react-navigation/native';
 
 import apiEndUsers from "../services/api/end_user_api";
 
 const ProfileSetup = () => {
+	const route = useRoute();
+	const { email, password } = route.params;
+	
 	const [end_user, setEndUser] = useState({
+		email: email,
+		password: password,
 		username: "",
 		name: "",
 	});

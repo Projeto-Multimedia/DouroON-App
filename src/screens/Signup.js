@@ -33,7 +33,7 @@ const Signup = () => {
           ></TextInput>
           <TouchableOpacity
             className="bg-cyan-900 rounded-2xl px-4 py-2"
-            onPress={() => navigation.navigate("ProfileSetup")}
+            onPress={() => navigation.navigate("ProfileSetup", { email: end_user.email, password: end_user.password })}
           >
             <Text className="text-neutral-50 text-center text-xl">Next</Text>
           </TouchableOpacity>
