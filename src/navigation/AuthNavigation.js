@@ -24,14 +24,13 @@ const AppNavigator = () => {
 		>
 			{}
 			<Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
-			<Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
-			<Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
-			<Stack.Screen name="ProfileSetup" component={ProfileSetup} options={{ headerShown: false }} />
-			<Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+			<Stack.Screen name="Signup" component={Signup} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+			<Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+			<Stack.Screen name="ProfileSetup" component={ProfileSetup} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
 		</Stack.Navigator>
 	);
 };
-const AppNav = () => {
+const AuthNavigation = () => {
 	const { isLoading, endUserToken } = useContext(AuthContext);
 	if (isLoading) {
 		return (
@@ -45,4 +44,4 @@ const AppNav = () => {
 	);
 };
 
-export default AppNav;
+export default AuthNavigation;

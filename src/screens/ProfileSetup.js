@@ -1,4 +1,4 @@
-import { TextInput, Text, View, TouchableOpacity } from "react-native";
+import { TextInput, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { useRoute } from '@react-navigation/native';
 
@@ -24,32 +24,38 @@ const ProfileSetup = () => {
 	}
 
 	return (
-		<View className="flex items-center justify-center h-screen">
-			<View className="bg-neutral-50 rounded-2xl p-6 w-80">
-				<Text className="text-neutral-900 text-center font-normal text-2xl">Profile</Text>
-
-				<View className="mt-4 space-y-4">
-					<TextInput
-						className="bg-neutral-300 px-3 py-1 rounded-2xl"
-						placeholder="Name"
-						autoCapitalize="none"
-						onChangeText={(name) => setEndUser({ ...end_user, name })}
-					></TextInput>
-					<TextInput
-						className="bg-neutral-300 px-3 py-1 rounded-2xl"
-						placeholder="Username"
-						autoCapitalize="none"
-						onChangeText={(username) => setEndUser({ ...end_user, username })}
-					></TextInput>
-					<TouchableOpacity
-						className="bg-cyan-900 rounded-2xl px-4 py-2"
-						onPress={() => _createEndUser(end_user)}
-					>
-						<Text className="text-neutral-50 text-center text-xl">Finish</Text>
-					</TouchableOpacity>
-				</View>
-			</View>
-		</View>
+		<View className="mt-8 p-5">
+          <Text className="text-neutral-50 font-semibold text-3xl">Profile</Text>
+		  <Image className="mx-auto my-4" source={require('../assets/avatar_default.png')}></Image>
+		  <TouchableOpacity className="bg-neutral-50 rounded-lg px-4 py-2">
+		  <Text className="text-neutral-900 text-center text-xl">Add a profile picture</Text>
+		  </TouchableOpacity>
+          <View className="mt-4 space-y-4">
+            <Text className="text-xl text-neutral-50">Full name</Text>
+            <TextInput
+              className="bg-neutral-900 border border-neutral-400 text-neutral-400 px-3 py-2 rounded-lg"
+              placeholder="ex: John Doe"
+              placeholderTextColor={"#A3A3A3"}
+              autoCapitalize="none"
+              value={end_user.name}
+              onChangeText={(name) => setEndUser({ ...end_user, name })}
+            ></TextInput>
+            <Text className="text-xl text-neutral-50">Username</Text>
+            <TextInput
+              className="bg-neutral-900 border border-neutral-400 text-neutral-400 px-3 py-2 rounded-lg"
+              placeholder="Your username"
+              placeholderTextColor={"#A3A3A3"}
+              value={end_user.username}
+              onChangeText={(username) => setEndUser({ ...end_user, username })}
+            ></TextInput>
+            <TouchableOpacity
+              className="bg-neutral-50 rounded-lg px-4 py-2"
+              onPress={() => _createEndUser(end_user)}
+            >
+              <Text className="text-neutral-900 text-center text-xl">Finish</Text>
+            </TouchableOpacity>
+          </View>
+      </View>
 	);
 };
 
