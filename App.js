@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
-import React, { useEffect, useContext } from "react";
-import { AuthProvider, AuthContext } from "./src/context/AuthContext";
+import React, { useEffect } from "react";
+import { AuthProvider } from "./src/context/AuthContext";
 import AuthNavigation from "./src/navigation/AuthNavigation";
 
 const App = () => {

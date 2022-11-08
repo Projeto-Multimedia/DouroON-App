@@ -17,6 +17,7 @@ const Navigation = () => {
 				headerBackTitleVisible: false,
 				headerShown: false,
 			}}
+			cardStyle={{ backgroundColor: "#171717" }}
 		>
 			{}
 		</Stack.Navigator>
