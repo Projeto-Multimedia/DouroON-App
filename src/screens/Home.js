@@ -20,11 +20,6 @@ const HomeScreen = () => {
 		<Tab.Navigator
 		barStyle={{ backgroundColor: 'black' }}
 		initialRouteName="feed"
-		tabBarOptions={{
-			safeAreaInsets: {
-				bottom: 0,
-			},
-		}}
 		>
 		<Tab.Screen
 			name="Home"
