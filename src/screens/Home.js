@@ -19,7 +19,13 @@ const HomeScreen = () => {
 	return (
 		<Tab.Navigator
 		barStyle={{ backgroundColor: 'black' }}
-		initialRouteName="feed">
+		initialRouteName="feed"
+		tabBarOptions={{
+			safeAreaInsets: {
+				bottom: 0,
+			},
+		}}
+		>
 		<Tab.Screen
 			name="Home"
 			component={FeedScreen}
