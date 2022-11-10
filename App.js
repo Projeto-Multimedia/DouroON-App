@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import React, { useEffect } from "react";
 import { AuthProvider } from "./src/context/AuthContext";
-import AuthNavigation from "./src/navigation/AuthNavigation";
+import Navigation from "./src/navigation/Navigation";
 
 const App = () => {
 	useEffect(() => {
@@ -10,7 +10,7 @@ const App = () => {
 
 	return (
 		<AuthProvider>
-			<AuthNavigation />
+			<Navigation />
 		</AuthProvider>
 	);
 };

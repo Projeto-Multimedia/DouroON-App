@@ -1,13 +1,12 @@
-import { Text, View, TouchableOpacity, FlatList } from "react-native";
-import React, { useEffect, useRef, useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { View } from "react-native";
+import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 
+import ProfileScreen from "./ProfileScreen";
+import FeedScreen from "./FeedScreen";
 
-const Home = () => {
-	const { logout, endUserInfo } = useContext(AuthContext);
-
+const HomeScreen = () => {
 	const Tab = createMaterialBottomTabNavigator()
 
 	const EmptyScreen = () => {
@@ -20,7 +19,7 @@ const Home = () => {
 		initialRouteName="feed">
 		<Tab.Screen
 			name="Home"
-			component={EmptyScreen}
+			component={FeedScreen}
 			options={{
 				tabBarIcon: ({ color }) => (
 					<Ionicons name="home" size={24} color={color} />
@@ -55,16 +54,16 @@ const Home = () => {
 			}}
 		/>
 		<Tab.Screen
-			name="Me"
-			component={EmptyScreen}
+			name="Profile"
+			component={ProfileScreen}
 			options={{
 				tabBarIcon: ({ color }) => (
 					<Ionicons name="person-circle-outline" size={24} color={color} />
-				)
+				),
 			}}
 		/>
 	</Tab.Navigator>
 	);
 };
 
-export default Home;
+export default HomeScreen;
