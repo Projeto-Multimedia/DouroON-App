@@ -1,11 +1,10 @@
 import { TextInput, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
 import apiEndUsers from "../services/api/end_user_api";
 
 const ProfileSetup = () => {
-  const navigation = useNavigation();
 	const route = useRoute();
 	const { email, password } = route.params;
 	
@@ -22,7 +21,6 @@ const ProfileSetup = () => {
 			setEndUser(arr);
 			console.log(arr);
 		});
-    navigation.navigate("SignIn");
 	}
 
 	return (
@@ -52,7 +50,7 @@ const ProfileSetup = () => {
             ></TextInput>
             <TouchableOpacity
               className="bg-neutral-50 rounded-lg px-4 py-2"
-              onPress={() => _createEndUser(end_user)}  
+              onPress={() => _createEndUser(end_user)}
             >
               <Text className="text-neutral-900 text-center text-xl">Finish</Text>
             </TouchableOpacity>
