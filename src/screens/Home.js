@@ -1,5 +1,6 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -7,7 +8,9 @@ import ProfileScreen from "./ProfileScreen";
 import FeedScreen from "./FeedScreen";
 
 const HomeScreen = () => {
-	const Tab = createMaterialBottomTabNavigator()
+	const Tab = createMaterialBottomTabNavigator();
+
+	const { endUserInfo } = useContext(AuthContext);
 
 	const EmptyScreen = () => {
 		return <View></View>
@@ -21,8 +24,8 @@ const HomeScreen = () => {
 			name="Home"
 			component={FeedScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="home" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "home" : "home-outline" } size={24} color={color} />
 				)
 			}}
 		/>
@@ -30,8 +33,8 @@ const HomeScreen = () => {
 			name="Discover"
 			component={EmptyScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="search" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "search" : "search-outline" } size={24} color={color} />
 				)
 			}}
 		/>
@@ -39,8 +42,8 @@ const HomeScreen = () => {
 			name="Add"
 			component={EmptyScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="add-circle-outline" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "add-circle" : "add-circle-outline" } size={24} color={color} />
 				)
 			}}
 		/>
@@ -48,17 +51,17 @@ const HomeScreen = () => {
 			name="Inbox"
 			component={EmptyScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="chatbubble-outline" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "chatbubble" : "chatbubble-outline" } size={24} color={color} />
 				)
 			}}
 		/>
 		<Tab.Screen
-			name="Profile"
+			name={endUserInfo.username}
 			component={ProfileScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="person-circle-outline" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "person-circle" : "person-circle-outline" } size={24} color={color} />
 				),
 			}}
 		/>
