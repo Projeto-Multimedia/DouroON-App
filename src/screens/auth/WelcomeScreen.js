@@ -1,39 +1,37 @@
-import { Text, View, Dimensions, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-
-const SCREEN_HEIGHT = Dimensions.get("window").height;
-const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const WelcomeScreen = () => {
 	const navigation = useNavigation();
 
 	return (
-		<View className="container mx-auto">
+		<View className="container mx-auto flex justify-center items-center h-screen bg-neutral-900">
+			<Image className="mx-auto my-4" source={require('../../assets/avatar_default.png')}></Image>
 			<View className="space-y-6 p-6">
-				<Text className="text-neutral-900 font-semibold text-2xl">Bem-vindo 👋</Text>
-				<Text className="text-base text-neutral-700">
+				<Text className="text-neutral-50 font-semibold text-2xl">Welcome 👋</Text>
+				<Text className="text-base text-neutral-50">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				</Text>
 				<TouchableOpacity
-					className="bg-neutral-500 rounded-2xl px-8 py-4"
+					className="bg-emerald-500 rounded-lg px-8 py-4"
 					onPress={() => navigation.navigate("Signup")}
 				>
-					<Text className="text-neutral-50 text-center text-2xl">Vamos começar!</Text>
+					<Text className="text-neutral-50 text-center text-2xl font-medium">Let's Get Started!</Text>
 				</TouchableOpacity>
 			</View>
-			<View className="flex flex-row justify-between mx-auto">
-				<Text>-- </Text>
-				<Text className="text-neutral-400 text-sm">OU</Text>
-				<Text> --</Text>
+			<View className="flex flex-row items-center">
+				<View className="flex flex-1 h-[1px] bg-neutral-400"/>
+				<View>
+					<Text className="text-neutral-400 text-xs text-center px-2 uppercase">Or</Text>
+				</View>
+				<View className="flex flex-1 h-[1px] bg-neutral-400"/>
 			</View>
-			<View className="mx-auto mt-6">
-				<Text className="text-neutral-400">
-					Já tem conta?
+			<View className="flex flex-row mx-auto mt-6">
+				<Text className="text-neutral-400">Already have an account?</Text>
 					<TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-						<Text className="text-neutral-500"> Faça login</Text>
+						<Text className="text-emerald-500"> Sign in</Text>
 					</TouchableOpacity>
-				</Text>
 			</View>
 		</View>
 	);
