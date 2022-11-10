@@ -7,7 +7,7 @@ const WelcomeScreen = () => {
 
 	return (
 		<View className="container mx-auto flex justify-center items-center bg-neutral-900 h-full">
-			<Image className="mx-auto my-4" source={require('../../assets/avatar_default.png')}></Image>
+			<Image className="mx-auto my-4" source={require('../../assets/app_logo.png')}></Image>
 			<View className="space-y-6 p-6">
 				<Text className="text-neutral-50 font-semibold text-2xl">Welcome 👋</Text>
 				<Text className="text-base text-neutral-50">
