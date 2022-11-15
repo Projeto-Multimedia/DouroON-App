@@ -1,9 +1,11 @@
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
   const { logout, endUserInfo } = useContext(AuthContext);
 
   return (
@@ -47,7 +49,9 @@ const ProfileScreen = () => {
           <Text className="text-neutral-300">Following</Text>
         </View>
       </View>
-      <TouchableOpacity className="bg-emerald-500 rounded-lg px-2 py-2 mt-6 mx-20">
+      <TouchableOpacity 
+      className="bg-emerald-500 rounded-lg px-2 py-2 mt-6 mx-20"
+      onPress={() => navigation.navigate("EditProfileScreen")}>
         <Text className="font-medium text-neutral-50 text-center text-xl">
           Edit profile
         </Text>
