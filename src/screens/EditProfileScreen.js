@@ -1,25 +1,24 @@
 import { Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
-import apiEndUsers from "../services/api/end_user_api";
 
 const EditProfileScreen = () => {
-  const { endUserInfo } = useContext(AuthContext);
-
+  const navigation = useNavigation();
+  const { endUserInfo, updateProfile } = useContext(AuthContext);
   const [end_user, setEndUser] = useState({
     username: "",
     name: "",
   });
 
-  function _editEndUser(end_user) {
-    apiEndUsers.post(end_user, `${endUserInfo.id}/edit`).then((res) => {
-      let arr = res;
-      setEndUser(arr);
-
-      console.log(arr);
-    });
-  }
+  const handleUpdate = () => {
+    updateProfile(end_user);
+    if(end_user.name.length >= 8  || end_user.name == "") 
+    {
+      navigation.goBack();
+    } 
+  };
 
   return (
     <View className="mt-8 p-5">
@@ -52,7 +51,7 @@ const EditProfileScreen = () => {
         <TouchableOpacity
           className="bg-neutral-50 rounded-lg px-4 py-2"
           onPress={() => {
-            _editEndUser(end_user);
+            handleUpdate();
           }}
         >
           <Text className="text-neutral-900 text-center text-xl">Finish</Text>

@@ -6,6 +6,7 @@ import apiEndUsers from "../services/api/end_user_api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [endUserToken, setEndUserToken] = useState(null);
 	const [endUserInfo, setEndUserInfo] = useState(null);
@@ -62,8 +63,27 @@ export const AuthProvider = ({ children }) => {
 		isLoggedIn();
 	}, []);
 
+	const updateProfile = (end_user) => {
+		setIsLoading(true);
+		apiEndUsers.post(end_user, `${endUserInfo.id}/edit`).then((res) => {
+			let endUserInfo = res.data;
+
+			if (res.status !== "success") {
+				console.log("Error:", res.status + " - " + res.message);
+			}
+			else {
+				console.log("Success:", res.status + " - " + res.message);
+				setEndUserInfo(endUserInfo);
+				AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
+				
+			}
+		});
+
+		setIsLoading(false);
+	};
+
 	return (
-		<AuthContext.Provider value={{ login, logout, isLoading, endUserToken, endUserInfo }}>
+		<AuthContext.Provider value={{ login, logout, updateProfile, isLoading, endUserToken, endUserInfo }}>
 			{children}
 		</AuthContext.Provider>
 	);
