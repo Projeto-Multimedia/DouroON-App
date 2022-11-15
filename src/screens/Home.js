@@ -1,14 +1,16 @@
-import { Text, View, TouchableOpacity, FlatList } from "react-native";
-import React, { useEffect, useRef, useState, useContext } from "react";
+import { View } from "react-native";
+import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 
+import ProfileScreen from "./ProfileScreen";
+import FeedScreen from "./FeedScreen";
 
-const Home = () => {
-	const { logout, endUserInfo } = useContext(AuthContext);
+const HomeScreen = () => {
+	const Tab = createMaterialBottomTabNavigator();
 
-	const Tab = createMaterialBottomTabNavigator()
+	const { endUserInfo } = useContext(AuthContext);
 
 	const EmptyScreen = () => {
 		return <View></View>
@@ -17,13 +19,14 @@ const Home = () => {
 	return (
 		<Tab.Navigator
 		barStyle={{ backgroundColor: 'black' }}
-		initialRouteName="feed">
+		initialRouteName="feed"
+		>
 		<Tab.Screen
 			name="Home"
-			component={EmptyScreen}
+			component={FeedScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="home" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "home" : "home-outline" } size={24} color={color} />
 				)
 			}}
 		/>
@@ -31,8 +34,8 @@ const Home = () => {
 			name="Discover"
 			component={EmptyScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="search" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "search" : "search-outline" } size={24} color={color} />
 				)
 			}}
 		/>
@@ -40,8 +43,8 @@ const Home = () => {
 			name="Add"
 			component={EmptyScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="add-circle-outline" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "add-circle" : "add-circle-outline" } size={24} color={color} />
 				)
 			}}
 		/>
@@ -49,22 +52,22 @@ const Home = () => {
 			name="Inbox"
 			component={EmptyScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="chatbubble-outline" size={24} color={color} />
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "chatbubble" : "chatbubble-outline" } size={24} color={color} />
 				)
 			}}
 		/>
 		<Tab.Screen
-			name="Me"
-			component={EmptyScreen}
+			name={endUserInfo.username}
+			component={ProfileScreen}
 			options={{
-				tabBarIcon: ({ color }) => (
-					<Ionicons name="person-circle-outline" size={24} color={color} />
-				)
+				tabBarIcon: ({ focused, color }) => (
+					<Ionicons name={focused ? "person-circle" : "person-circle-outline" } size={24} color={color} />
+				),
 			}}
 		/>
 	</Tab.Navigator>
 	);
 };
 
-export default Home;
+export default HomeScreen;

@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
 			if (endUserInfo) {
 				setEndUserToken(endUserToken);
 				setEndUserInfo(endUserInfo);
+				console.log("Logged in");
 			}
 			setIsLoading(false);
 

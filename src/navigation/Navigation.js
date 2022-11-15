@@ -4,26 +4,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AuthContext } from "../context/AuthContext";
 import { View, ActivityIndicator } from "react-native";
 
-import Home from "../screens/Home";
+import HomeScreen from "../screens/Home";
+import WelcomeScreen from "../screens/auth/WelcomeScreen";
+import Signup from "../screens/auth/Signup";
+import SignIn from "../screens/auth/SignIn";
+import ProfileSetup from "../screens/auth/ProfileSetup";
 
 const Stack = createStackNavigator();
+
 const Navigation = () => {
-	return (
-		<Stack.Navigator
-			initialRouteName="Home"
-			screenOptions={{
-				headerTitle: false,
-				headerTransparent: true,
-				headerBackTitleVisible: false,
-				headerShown: false,
-			}}
-			cardStyle={{ backgroundColor: "#171717" }}
-		>
-			{}
-		</Stack.Navigator>
-	);
-};
-const AuthNavigation = () => {
 	const { isLoading, endUserToken } = useContext(AuthContext);
 	if (isLoading) {
 		return (
@@ -33,8 +22,21 @@ const AuthNavigation = () => {
 		);
 	}
 	return (
-		<NavigationContainer> {endUserToken !== null ? <Navigation /> : <AuthNavigation />}</NavigationContainer>
+	<NavigationContainer screenOptions={{ contentStyle: {backgroundColor: '#171717'}}}>
+		<Stack.Navigator>
+			{ endUserToken == null ? 
+			<>
+				<Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+				<Stack.Screen name="Signup" component={Signup} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+				<Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+				<Stack.Screen name="ProfileSetup" component={ProfileSetup} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+			</>
+			:
+			<Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+			}
+		</Stack.Navigator>
+	</NavigationContainer>
 	);
 };
 
-export default AuthNavigation;
+export default Navigation;

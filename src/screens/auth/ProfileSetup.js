@@ -2,7 +2,7 @@ import { TextInput, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { useRoute } from '@react-navigation/native';
 
-import apiEndUsers from "../services/api/end_user_api";
+import apiEndUsers from "../../services/api/end_user_api";
 
 const ProfileSetup = () => {
 	const route = useRoute();
@@ -26,7 +26,7 @@ const ProfileSetup = () => {
 	return (
 		<View className="mt-8 p-5">
           <Text className="text-neutral-50 font-semibold text-3xl">Profile</Text>
-		  <Image className="mx-auto my-4" source={require('../assets/avatar_default.png')}></Image>
+		  <Image className="mx-auto my-4" source={require('../../assets/avatar_default.png')}></Image>
 		  <TouchableOpacity className="bg-neutral-50 rounded-lg px-4 py-2">
 		  <Text className="text-neutral-900 text-center text-xl">Add a profile picture</Text>
 		  </TouchableOpacity>

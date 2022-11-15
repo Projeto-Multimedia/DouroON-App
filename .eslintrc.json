@@ -1,0 +1,55 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "react/no-danger": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/prop-types": 0,
+    "react/no-unused-prop-types": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/state-in-constructor": 0,
+    "react/no-unescaped-entities": 0,
+    "import/no-default-export": 0,
+    "import/prefer-default-export": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "no-plusplus": 0,
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "react/require-default-props": 0,
+    "semi": [2, "always"],
+    "max-len": ["error", { "code": 120 }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-multiple-empty-lines": "error",
+    "lines-between-class-members": ["warn", "always"],
+    "padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": "*", "next": "block" },
+      { "blankLine": "always", "prev": "block", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "block-like" },
+      { "blankLine": "always", "prev": "block-like", "next": "*" },
+      { "blankLine": "always", "prev": "multiline-block-like", "next": "*" }
+    ],
+    "react/jsx-no-duplicate-props": [1, { "ignoreCase": false } ]
+  },
+  "extends": [
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/react",
+    "prettier/@typescript-eslint"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": ["*.snap", "/*.*", "coverage/**/*", "dist/*", "*.js"]
+}
