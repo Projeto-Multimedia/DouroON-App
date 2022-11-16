@@ -2,12 +2,14 @@ import { Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from 'expo-image-picker';
 
 
 const EditProfileScreen = () => {
   const navigation = useNavigation();
   const { endUserInfo, updateProfile } = useContext(AuthContext);
   const [end_user, setEndUser] = useState({
+    avatar:"",
     username: "",
     name: "",
   });
@@ -20,6 +22,23 @@ const EditProfileScreen = () => {
     } 
   };
 
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    
+    if (!result.canceled) {
+      setEndUser({...end_user, avatar: result.assets[0].uri});
+    }
+    console.log(end_user.avatar);
+  };
+
+
   return (
     <View className="mt-8 p-5">
       <Text className="text-neutral-50 font-semibold text-3xl">Profile</Text>
@@ -27,7 +46,11 @@ const EditProfileScreen = () => {
         className="mx-auto my-4"
         source={require("../assets/avatar_default.png")}
       ></Image>
-      <TouchableOpacity className="bg-neutral-50 rounded-lg px-4 py-2">
+      <TouchableOpacity className="bg-neutral-50 rounded-lg px-4 py-2"
+      onPress={() => {
+            pickImage();
+          }}
+      >
         <Text className="text-neutral-900 text-center text-xl">
           Add a profile picture
         </Text>
