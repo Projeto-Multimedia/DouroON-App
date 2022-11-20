@@ -1,10 +1,11 @@
 import { TextInput, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import apiEndUsers from "../../services/api/end_user_api";
 
 const ProfileSetup = () => {
+  const navigation = useNavigation();
 	const route = useRoute();
 	const { email, password } = route.params;
 	
@@ -21,6 +22,8 @@ const ProfileSetup = () => {
 			setEndUser(arr);
 			console.log(arr);
 		});
+
+    navigation.navigate("SignIn");
 	}
 
 	return (

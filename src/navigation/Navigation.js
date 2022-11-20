@@ -9,6 +9,7 @@ import WelcomeScreen from "../screens/auth/WelcomeScreen";
 import Signup from "../screens/auth/Signup";
 import SignIn from "../screens/auth/SignIn";
 import ProfileSetup from "../screens/auth/ProfileSetup";
+import EditProfileScreen from "../screens/EditProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -32,7 +33,10 @@ const Navigation = () => {
 				<Stack.Screen name="ProfileSetup" component={ProfileSetup} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
 			</>
 			:
+			<>
 			<Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+			<Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ headerShown: false, cardStyle: {backgroundColor: '#171717'} }} />
+			</>
 			}
 		</Stack.Navigator>
 	</NavigationContainer>
