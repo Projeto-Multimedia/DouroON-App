@@ -67,9 +67,10 @@ export const AuthProvider = ({ children }) => {
     apiEndUsers.post(end_user, `${endUserInfo.id}/edit`).then((res) => {
       let endUserInfo = res.data;
       if (res.status !== "success") {
-        console.log("Error:", res.status + " - " + res.message);
+        setAlert("Error: " + res.message);
       } else {
         console.log("Success:", res.status + " - " + res.message);
+        setAlert("");
         setEndUserInfo(endUserInfo);
         AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
       }
@@ -98,6 +99,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         login,
         logout,
+        setAlert,
         alert,
         updateProfile,
         isLoading,
