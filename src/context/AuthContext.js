@@ -6,6 +6,7 @@ import apiEndUsers from "../services/api/end_user_api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [alert, setAlert] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [endUserToken, setEndUserToken] = useState(null);
   const [endUserInfo, setEndUserInfo] = useState(null);
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       let endUserInfo = res.data;
 
       if (res.status !== 200) {
-        console.log("Error:", res.status + " - " + res.message);
+        setAlert("Error: " + res.message);
       } else {
         setEndUserInfo(endUserInfo);
         setEndUserToken(endUserInfo.token);
@@ -24,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
       }
     });
-
+    setAlert("");
     setIsLoading(false);
   };
 
@@ -66,9 +67,10 @@ export const AuthProvider = ({ children }) => {
     apiEndUsers.post(end_user, `${endUserInfo.id}/edit`).then((res) => {
       let endUserInfo = res.data;
       if (res.status !== "success") {
-        console.log("Error:", res.status + " - " + res.message);
+        setAlert("Error: " + res.message);
       } else {
         console.log("Success:", res.status + " - " + res.message);
+        setAlert("");
         setEndUserInfo(endUserInfo);
         AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
       }
@@ -97,6 +99,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         login,
         logout,
+        setAlert,
+        alert,
         updateProfile,
         isLoading,
         endUserToken,

@@ -4,9 +4,11 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
-const EditProfileScreen = () => {
+import { Alert } from "../components/Alert";
+
+export const EditProfileScreen = () => {
   const navigation = useNavigation();
-  const { endUserInfo, updateProfile, uploadImage } = useContext(AuthContext);
+  const { endUserInfo, updateProfile, uploadImage, alert } = useContext(AuthContext);
   const [end_user, setEndUser] = useState({
     avatar: "",
     username: "",
@@ -71,6 +73,7 @@ const EditProfileScreen = () => {
         </Text>
       </TouchableOpacity>
       <View className="mt-4 space-y-4">
+      <Alert class="bg-red-100 font-semibold text-red-900 px-4 py-3 rounded" alert={alert} />
         <Text className="text-xl text-neutral-50">Full name</Text>
         <TextInput
           className="bg-neutral-900 border border-neutral-400 text-neutral-100 px-3 py-2 rounded-lg"
