@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 const EditProfileScreen = () => {
   const navigation = useNavigation();
-  const { endUserInfo, updateProfile } = useContext(AuthContext);
+  const { endUserInfo, updateProfile, uploadImage } = useContext(AuthContext);
   const [end_user, setEndUser] = useState({
     avatar:"",
     username: "",
@@ -33,9 +33,21 @@ const EditProfileScreen = () => {
 
     
     if (!result.canceled) {
-      setEndUser({...end_user, avatar: result.assets[0].uri});
-    }
-    console.log(end_user.avatar);
+    
+    let fileType = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf(".") + 1);
+		let fileName = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf("/") + 1);
+
+    const data = new FormData();
+    data.append('avatar', {
+      uri: result.assets[0].uri,
+      type: `image/${fileType}`,
+      name: fileName,
+    });
+
+    setEndUser({...end_user, avatar: result.assets[0].uri});
+    uploadImage(data); 
+  }
+
   };
 
 
@@ -44,7 +56,7 @@ const EditProfileScreen = () => {
       <Text className="text-neutral-50 font-semibold text-3xl">Profile</Text>
       <Image
         className="mx-auto my-4"
-        source={require("../assets/avatar_default.png")}
+        source={{ uri: `http://localhost:8000/public/uploads/avatar/${endUserInfo.avatar}` }}
       ></Image>
       <TouchableOpacity className="bg-neutral-50 rounded-lg px-4 py-2"
       onPress={() => {

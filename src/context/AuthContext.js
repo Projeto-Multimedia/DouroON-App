@@ -63,12 +63,13 @@ export const AuthProvider = ({ children }) => {
 		isLoggedIn();
 	}, []);
 
-	const updateProfile = (end_user) => {
+	const updateProfile =  (end_user) => {
 		setIsLoading(true);
+		console.log("end_user: ", end_user);
 		apiEndUsers.post(end_user, `${endUserInfo.id}/edit`).then((res) => {
 			let endUserInfo = res.data;
-
 			if (res.status !== "success") {
+				
 				console.log("Error:", res.status + " - " + res.message);
 			}
 			else {
@@ -78,12 +79,27 @@ export const AuthProvider = ({ children }) => {
 				
 			}
 		});
-
 		setIsLoading(false);
 	};
+		const uploadImage = async (image) => {
+			let res = await fetch (`http://10.0.2.2:8000/api/end-users/${endUserInfo.id}/upload`, {
+				method: "POST",
+				headers: {
+					"content-type": "multipart/form-data",
+					},
+					body: image,
+					}).then((res) => res.json())
+					.then((res) => {
+						console.log("Success:", res.status + " - " + res.message);
+						setEndUserInfo(res.data);
+						AsyncStorage.setItem("endUserInfo", JSON.stringify(res.data));
+					})
+					.catch((err) => console.log("err: ", err));	
+		};
+		
 
 	return (
-		<AuthContext.Provider value={{ login, logout, updateProfile, isLoading, endUserToken, endUserInfo }}>
+		<AuthContext.Provider value={{ login, logout, updateProfile, isLoading, endUserToken, endUserInfo, uploadImage }}>
 			{children}
 		</AuthContext.Provider>
 	);
