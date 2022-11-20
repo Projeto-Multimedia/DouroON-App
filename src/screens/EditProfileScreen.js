@@ -1,27 +1,24 @@
 import { Text, View, Image, TouchableOpacity, TextInput } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
-import * as ImagePicker from 'expo-image-picker';
-
+import * as ImagePicker from "expo-image-picker";
 
 const EditProfileScreen = () => {
   const navigation = useNavigation();
   const { endUserInfo, updateProfile, uploadImage } = useContext(AuthContext);
   const [end_user, setEndUser] = useState({
-    avatar:"",
+    avatar: "",
     username: "",
     name: "",
   });
 
   const handleUpdate = () => {
     updateProfile(end_user);
-    if(end_user.name.length >= 8  || end_user.name == "") 
-    {
+    if (end_user.name.length >= 8 || end_user.name == "") {
       navigation.goBack();
-    } 
+    }
   };
-
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,37 +28,43 @@ const EditProfileScreen = () => {
       quality: 1,
     });
 
-    
     if (!result.canceled) {
-    
-    let fileType = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf(".") + 1);
-		let fileName = result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf("/") + 1);
+      let fileType = result.assets[0].uri.substring(
+        result.assets[0].uri.lastIndexOf(".") + 1,
+      );
+      let fileName = result.assets[0].uri.substring(
+        result.assets[0].uri.lastIndexOf("/") + 1,
+      );
 
-    const data = new FormData();
-    data.append('avatar', {
-      uri: result.assets[0].uri,
-      type: `image/${fileType}`,
-      name: fileName,
-    });
+      const data = new FormData();
+      data.append("avatar", {
+        uri: result.assets[0].uri,
+        type: `image/${fileType}`,
+        name: fileName,
+      });
 
-    setEndUser({...end_user, avatar: result.assets[0].uri});
-    uploadImage(data); 
-  }
-
+      setEndUser({ ...end_user, avatar: result.assets[0].uri });
+      uploadImage(data);
+    }
   };
-
 
   return (
     <View className="mt-8 p-5">
       <Text className="text-neutral-50 font-semibold text-3xl">Profile</Text>
       <Image
         className="mx-auto my-4"
-        source={{ uri: `http://localhost:8000/public/uploads/avatar/${endUserInfo.avatar}` }}
+        source={{
+          uri: `http://10.0.2.2:8000/${endUserInfo.avatar}`,
+          key: `http://10.0.2.2:8000/${endUserInfo.avatar}`
+        }}
+        style = {{width: 150, height: 150, borderRadius: 75}}
+        resizeMode="cover"
       ></Image>
-      <TouchableOpacity className="bg-neutral-50 rounded-lg px-4 py-2"
-      onPress={() => {
-            pickImage();
-          }}
+      <TouchableOpacity
+        className="bg-neutral-50 rounded-lg px-4 py-2"
+        onPress={() => {
+          pickImage();
+        }}
       >
         <Text className="text-neutral-900 text-center text-xl">
           Add a profile picture
