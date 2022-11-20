@@ -44,7 +44,7 @@ const EditProfileScreen = () => {
       });
 
       setEndUser({ ...end_user, avatar: result.assets[0].uri });
-      uploadImage(data);
+      uploadImage("end-users", data);
     }
   };
 
