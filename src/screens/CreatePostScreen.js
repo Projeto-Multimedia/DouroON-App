@@ -8,6 +8,13 @@ const CreatePostScreen = () => {
   const navigation = useNavigation();
   const { endUserInfo } = useContext(AuthContext);
 
+  const [post, setPost] = useState({
+    enduser_id: endUserInfo.id,
+    image: "",
+    location: "",
+    description: "",
+  });
+
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -23,6 +30,10 @@ const CreatePostScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
+
+  function _createPost() {
+    console.log(post);
+  }
 
   const uploadImage = async (image) => {
     await fetch(`http://10.0.2.2:8000/api/user-posts/${endUserInfo.id}/create`, {
@@ -63,6 +74,7 @@ const CreatePostScreen = () => {
           placeholder={"Location"}
           placeholderTextColor={"#A3A3A3"}
           autoCapitalize="none"
+          onChangeText={(location) => setPost({ ...post, location })}
         ></TextInput>
         </View>
         <TextInput
@@ -70,6 +82,7 @@ const CreatePostScreen = () => {
           placeholder={"Write a caption..."}
           placeholderTextColor={"#A3A3A3"}
           autoCapitalize="none"
+          onChangeText={(description) => setPost({ ...post, description })}
         ></TextInput>
         <TouchableOpacity
         className="bg-emerald-500 rounded-lg px-2 py-2 mt-6 mx-20"
@@ -77,6 +90,14 @@ const CreatePostScreen = () => {
       >
         <Text className="font-medium text-neutral-50 text-center text-xl">
           Upload image
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="bg-emerald-500 rounded-lg px-2 py-2 mt-6 mx-20"
+        onPress={() => _createPost()}
+      >
+        <Text className="font-medium text-neutral-50 text-center text-xl">
+          Create post
         </Text>
       </TouchableOpacity>
       <View className="mt-4 space-y-4"></View>
