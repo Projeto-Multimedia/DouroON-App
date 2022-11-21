@@ -4,9 +4,14 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 
-const ProfileScreen = () => {
+export const ProfileScreen = () => {
   const navigation = useNavigation();
-  const { logout, endUserInfo } = useContext(AuthContext);
+  const { logout, endUserInfo, setAlert } = useContext(AuthContext);
+
+  const handleProfileEditNavigation = () => {
+    setAlert("");
+    navigation.navigate("EditProfileScreen")
+  };
 
   return (
     <View className="container mt-8 p-5 flex-1 bg-neutral-900">
@@ -56,7 +61,7 @@ const ProfileScreen = () => {
       </View>
       <TouchableOpacity
         className="bg-emerald-500 rounded-lg px-2 py-2 mt-6 mx-20"
-        onPress={() => navigation.navigate("EditProfileScreen")}
+        onPress={() => handleProfileEditNavigation()}
       >
         <Text className="font-medium text-neutral-50 text-center text-xl">
           Edit profile
