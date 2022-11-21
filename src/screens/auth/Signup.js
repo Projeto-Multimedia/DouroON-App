@@ -1,5 +1,5 @@
-import { TextInput, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import React, { useState, useContext, useEffect } from 'react';
+import { TextInput, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState} from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
@@ -18,7 +18,7 @@ const Signup = () => {
           <View className="mt-4 space-y-4">
             <Text className="text-xl text-neutral-50">Email</Text>
             <TextInput
-              className="bg-neutral-900 border border-neutral-400 text-neutral-400 px-3 py-2 rounded-lg"
+              className="bg-neutral-900 border border-neutral-400 text-neutral-50 px-3 py-2 rounded-lg"
               placeholder="Your e-mail"
               placeholderTextColor={"#A3A3A3"}
               autoCapitalize="none"
@@ -27,7 +27,7 @@ const Signup = () => {
             ></TextInput>
             <Text className="text-xl text-neutral-50">Password</Text>
             <TextInput
-              className="bg-neutral-900 border border-neutral-400 text-neutral-400 px-3 py-2 rounded-lg"
+              className="bg-neutral-900 border border-neutral-400 text-neutral-50 px-3 py-2 rounded-lg"
               placeholder="Your password"
               placeholderTextColor={"#A3A3A3"}
               secureTextEntry={true}
