@@ -9,6 +9,7 @@ import { Alert } from "../components/Alert";
 export const EditProfileScreen = () => {
   const navigation = useNavigation();
   const { endUserInfo, updateProfile, uploadImage, alert } = useContext(AuthContext);
+  const [url, setUrl] = useState('');
   const [end_user, setEndUser] = useState({
     avatar: "",
     username: "",
@@ -44,9 +45,8 @@ export const EditProfileScreen = () => {
         type: `image/${fileType}`,
         name: fileName,
       });
-
-      setEndUser({ ...end_user, avatar: result.assets[0].uri });
-      uploadImage("end-users", data);
+      uploadImage(data);
+      setUrl(result.assets[0].uri);
     }
   };
 
@@ -56,8 +56,7 @@ export const EditProfileScreen = () => {
       <Image
         className="mx-auto my-4"
         source={{
-          uri: `http://10.0.2.2:8000/${endUserInfo.avatar}`,
-          key: `http://10.0.2.2:8000/${endUserInfo.avatar}`
+          uri: url ? url : `http://10.0.2.2:8000/uploads/avatar/${endUserInfo.avatar}` ,
         }}
         style = {{width: 150, height: 150, borderRadius: 75}}
         resizeMode="cover"
