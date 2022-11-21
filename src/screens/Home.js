@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import ProfileScreen from "./ProfileScreen";
 import FeedScreen from "./FeedScreen";
+import CreatePostScreen from "./CreatePostScreen";
 
 const HomeScreen = () => {
 	const Tab = createMaterialBottomTabNavigator();
@@ -41,7 +42,7 @@ const HomeScreen = () => {
 		/>
 		<Tab.Screen
 			name="Add"
-			component={EmptyScreen}
+			component={CreatePostScreen}
 			options={{
 				tabBarIcon: ({ focused, color }) => (
 					<Ionicons name={focused ? "add-circle" : "add-circle-outline" } size={24} color={color} />
