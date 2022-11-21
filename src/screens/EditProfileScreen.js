@@ -56,7 +56,7 @@ export const EditProfileScreen = () => {
       <Image
         className="mx-auto my-4"
         source={{
-          uri: url ? url : `http://10.0.2.2:8000/uploads/avatar/${endUserInfo.avatar}` ,
+          uri: url ? url : `http://10.0.2.2:8000/${endUserInfo.avatar}` ,
         }}
         style = {{width: 150, height: 150, borderRadius: 75}}
         resizeMode="cover"
