@@ -1,25 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { View, FlatList, Text, Dimensions } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 import { FeedButtons } from "../components/FeedButtons";
+import PostSingle from "../components/Post";
+
+import apiUserPosts from "../services/api/posts_api";
 
 export const FeedScreen = () => {
-  const { endUserInfo } = useContext(AuthContext);
+  const [posts, setPosts] = useState([]);
 
-  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const { endUserInfo } = useContext(AuthContext);
+  const mediaRefs = useRef([]);
+
+  const loadPosts = () => {
+    apiUserPosts.getAll().then((res) => {
+      setPosts(res);
+    });
+  };
+
+  useEffect(loadPosts, []);
 
   const renderItem = ({ item, index }) => {
     return (
       <View
         style={[
-          { flex: 1, height: Dimensions.get("window").height - 54 },
-          index % 2 == 0
-            ? { backgroundColor: "blue" }
-            : { backgroundColor: "pink" },
+          { flex: 1, height: Dimensions.get("window").height - 54},
         ]}
       >
-        <Text>{item}</Text>
+        <PostSingle item={item} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef)}/>
       </View>
     );
   };
@@ -27,14 +36,18 @@ export const FeedScreen = () => {
     <View>
       <FeedButtons />
       <FlatList
-        data={array}
+        onRefresh={loadPosts}
+        refreshing={false}
+        data={posts}
+        windowSize={8}
+        initialNumToRender={3}
         renderItem={renderItem}
         pagingEnabled
-        keyExtractor={(item) => item}
+        keyExtractor={item => item.id}
         decelerationRate={"normal"}
       />
     </View>
   );
-};
+  };
 
 export default FeedScreen;
