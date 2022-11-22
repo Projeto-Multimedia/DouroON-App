@@ -1,26 +1,53 @@
-import { Text, View, TouchableOpacity, Image } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { View, FlatList, Text, Dimensions } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
-const FeedScreen = () => {
+import { FeedButtons } from "../components/FeedButtons";
+import PostSingle from "../components/Post";
+
+import apiUserPosts from "../services/api/posts_api";
+
+export const FeedScreen = () => {
+  const [posts, setPosts] = useState([]);
 
   const { endUserInfo } = useContext(AuthContext);
+  const mediaRefs = useRef([]);
 
-	return (
-	<View className="mt-8 p-5 flex-1 bg-neutral-900">
-        <View className="flex flex-row justify-between px-11">
-        <TouchableOpacity>
-            <Text className="font-semibold text-2xl text-center text-neutral-50">Following</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-            <Text className="font-semibold text-2xl text-center text-neutral-50">For You</Text>
-        </TouchableOpacity>
-        </View>
-        <View className="flex items-center justify-center h-screen">
-            <Text className="text-neutral-50 font-medium text-lg">You should follow someone first!</Text>
-        </View>
+  const loadPosts = () => {
+    apiUserPosts.getAll().then((res) => {
+      setPosts(res);
+    });
+  };
+
+  useEffect(loadPosts, []);
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <View
+        style={[
+          { flex: 1, height: Dimensions.get("window").height - 54},
+        ]}
+      >
+        <PostSingle item={item} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef)}/>
+      </View>
+    );
+  };
+  return (
+    <View>
+      <FeedButtons />
+      <FlatList
+        onRefresh={loadPosts}
+        refreshing={false}
+        data={posts}
+        windowSize={8}
+        initialNumToRender={3}
+        renderItem={renderItem}
+        pagingEnabled
+        keyExtractor={item => item.id}
+        decelerationRate={"normal"}
+      />
     </View>
-	);
-};
+  );
+  };
 
 export default FeedScreen;
