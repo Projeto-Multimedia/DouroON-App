@@ -25,7 +25,8 @@ export const ProfileScreen = () => {
   };
 
   const syncProfile = () => {
-    apiProfileAccounts.getSingle(`${endUserInfo.profile_id}/user-profile`).then((res) => {
+    
+    apiProfileAccounts.getSingle(`${endUserInfo.profile_id}/${endUserInfo.profile}-profile`).then((res) => {
       console.log(endUserInfo);
       setProfile({
         username: res.data.endUser.username,
