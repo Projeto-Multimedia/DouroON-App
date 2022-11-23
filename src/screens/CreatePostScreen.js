@@ -61,10 +61,10 @@ const CreatePostScreen = () => {
     if (post.location) {
       data.append("location", post.location);
     }
-    else if (post.description) {
+    if (post.description) {
       data.append("description", post.description);
     }
-      
+
     console.log(data);
 
     await fetch(
@@ -84,43 +84,60 @@ const CreatePostScreen = () => {
         setPost({ arr });
       })
       .catch((err) => console.log("err: ", err));
-    };
+  };
 
   return (
     <SafeAreaView className="bg-neutral-900 flex-1">
-    <ScrollView className="mt-8 p-5">
-      <View className="flex flex-row justify-between items-center">
-        <Text className="text-neutral-50 font-semibold text-2xl">New post</Text>
-      </View>
-      {url ? 
-      <Image
-        className="mx-auto my-4"
-        source={{ uri: url }}
-        style={{ width: "100%", height: undefined, aspectRatio: 1 }}
-        resizeMode="cover"
-      ></Image>
-      : null}
-      <View>
-        <TextInput
-          className="mt-4 bg-neutral-900 border border-neutral-400 text-neutral-100 px-3 py-2 rounded-lg"
-          placeholder={"Location"}
-          placeholderTextColor={"#A3A3A3"}
-          autoCapitalize="none"
-          value={post.location}
-          onChangeText={(location) => setPost({ ...post, location: location })}
-        ></TextInput>
-        <TextInput
-        className="mt-4 bg-neutral-900 border border-neutral-400 text-neutral-100 px-3 py-2 rounded-lg"
-        placeholder={"Write a caption..."}
-        placeholderTextColor={"#A3A3A3"}
-        autoCapitalize="none"
-        value={post.description}
-        onChangeText={(description) => setPost({ ...post, description: description })}
-      ></TextInput>
-      </View>
-        <Button message="Upload image" textColor="text-neutral-900" color="bg-white" onPress={() => pickImage()}/>
-        <Button message="Create post" textWeight="font-medium" textColor="text-neutral-50" color="bg-emerald-500" onPress={() => _createPost(post.image)}/>
-    </ScrollView>
+      <ScrollView className="mt-8 p-5">
+        <View className="flex flex-row justify-between items-center">
+          <Text className="text-neutral-50 font-semibold text-2xl">
+            New post
+          </Text>
+        </View>
+        {url ? (
+          <Image
+            className="mx-auto my-4"
+            source={{ uri: url }}
+            style={{ width: "100%", height: undefined, aspectRatio: 1 }}
+            resizeMode="cover"
+          ></Image>
+        ) : null}
+        <View>
+          <TextInput
+            className="mt-4 bg-neutral-900 border border-neutral-400 text-neutral-100 px-3 py-2 rounded-lg"
+            placeholder={"Location"}
+            placeholderTextColor={"#A3A3A3"}
+            autoCapitalize="none"
+            value={post.location}
+            onChangeText={(location) =>
+              setPost({ ...post, location: location })
+            }
+          ></TextInput>
+          <TextInput
+            className="mt-4 bg-neutral-900 border border-neutral-400 text-neutral-100 px-3 py-2 rounded-lg"
+            placeholder={"Write a caption..."}
+            placeholderTextColor={"#A3A3A3"}
+            autoCapitalize="none"
+            value={post.description}
+            onChangeText={(description) =>
+              setPost({ ...post, description: description })
+            }
+          ></TextInput>
+        </View>
+        <Button
+          message="Upload image"
+          textColor="text-neutral-900"
+          color="bg-white"
+          onPress={() => pickImage()}
+        />
+        <Button
+          message="Create post"
+          textWeight="font-medium"
+          textColor="text-neutral-50"
+          color="bg-emerald-500"
+          onPress={() => _createPost(post.image)}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
