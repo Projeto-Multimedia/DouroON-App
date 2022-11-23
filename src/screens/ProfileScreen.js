@@ -1,10 +1,4 @@
-import {
-  Text,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { Text, ScrollView, View, TouchableOpacity, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../context/AuthContext";
@@ -23,6 +17,8 @@ export const ProfileScreen = () => {
     name: "",
     avatar: "",
     numberOfPosts: "",
+    numberOfFollowers: "",
+    numberOfFollowing: "",
   });
 
   const [posts, setPosts] = useState([]);
@@ -41,9 +37,40 @@ export const ProfileScreen = () => {
           name: res.data.endUser.name,
           avatar: res.data.endUser.avatar,
           numberOfPosts: res.data.numberOfPosts,
+          numberOfFollowers: res.data.numberOfFollowers,
+          numberOfFollowing: res.data.numberOfFollowing,
         });
         setPosts(res.data.userPosts);
       });
+  };
+
+  const groupItems = (items, n) =>
+    items.reduce((acc, val, i) => {
+      const idx = Math.floor(i / n);
+      acc[idx] = [...(acc[idx] || []), val];
+      return acc;
+    }, []);
+
+  const renderPosts = () => {
+    {
+      return groupItems(posts, 3).map((row, index) => (
+        <View key={index} className="flex flex-row">
+          {row.map((post, index) => (
+            <View key={index}>
+              <Image
+                className="mt-1 mx-1"
+                source={{
+                  uri: `http://10.0.2.2:8000/${post.image}`,
+                }}
+                key={`http://10.0.2.2:8000/${post.image}`}
+                style={{ width: 100, height: 100 }}
+                resizeMode="cover"
+              />
+            </View>
+          ))}
+        </View>
+      ));
+    }
   };
 
   useEffect(syncProfile, []);
@@ -83,13 +110,13 @@ export const ProfileScreen = () => {
         </View>
         <View>
           <Text className="font-medium text-2xl text-center text-neutral-50">
-            432
+            {profile.numberOfFollowers}
           </Text>
           <Text className="text-neutral-300">Followers</Text>
         </View>
         <View>
           <Text className="font-medium text-2xl text-center text-neutral-50">
-            224
+            {profile.numberOfFollowing}
           </Text>
           <Text className="text-neutral-300">Following</Text>
         </View>
@@ -101,19 +128,7 @@ export const ProfileScreen = () => {
         message="Edit profile"
         onPress={() => handleProfileEditNavigation()}
       />
-      <View className="flex mx-auto flex-row items-center mt-3">
-        {posts.map((post) => (
-          <Image
-            className="my-2"
-            source={{
-              uri: `http://10.0.2.2:8000/${post.image}`,
-            }}
-            key={`http://10.0.2.2:8000/${post.image}`}
-            style={{ width: 100, height: 100 }}
-            resizeMode="cover"
-          ></Image>
-        ))}
-      </View>
+      <View className="mt-3 mx-auto">{renderPosts()}</View>
     </ScrollView>
   );
 };
