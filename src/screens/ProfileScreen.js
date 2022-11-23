@@ -1,4 +1,10 @@
-import { Text, ScrollView, View, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../context/AuthContext";
@@ -19,28 +25,31 @@ export const ProfileScreen = () => {
     numberOfPosts: "",
   });
 
+  const [posts, setPosts] = useState([]);
+
   const handleProfileEditNavigation = () => {
     setAlert("");
-    navigation.navigate("EditProfileScreen")
+    navigation.navigate("EditProfileScreen");
   };
 
   const syncProfile = () => {
-    
-    apiProfileAccounts.getSingle(`${endUserInfo.profile_id}/${endUserInfo.profile}-profile`).then((res) => {
-      console.log(endUserInfo);
-      setProfile({
-        username: res.data.endUser.username,
-        name: res.data.endUser.name,
-        avatar: res.data.endUser.avatar,
-        numberOfPosts: res.data.numberOfPosts,
+    apiProfileAccounts
+      .getSingle(`${endUserInfo.profile_id}/${endUserInfo.profile}-profile`)
+      .then((res) => {
+        setProfile({
+          username: res.data.endUser.username,
+          name: res.data.endUser.name,
+          avatar: res.data.endUser.avatar,
+          numberOfPosts: res.data.numberOfPosts,
+        });
+        setPosts(res.data.userPosts);
       });
-    });
   };
 
   useEffect(syncProfile, []);
 
   return (
-    <ScrollView className="container mt-8 p-5 flex-1 bg-neutral-900">
+    <ScrollView className="mt-8 p-5 flex-1 bg-neutral-900">
       <View className="flex flex-row justify-between items-center">
         <Text className="text-neutral-50 font-semibold text-2xl">
           {profile.username}
@@ -85,8 +94,26 @@ export const ProfileScreen = () => {
           <Text className="text-neutral-300">Following</Text>
         </View>
       </View>
-      <Button color="bg-emerald-500" textWeight="font-medium" textColor="text-neutral-50" message="Edit profile" onPress={() => handleProfileEditNavigation()}/>
-      <View className="mt-4 space-y-4"></View>
+      <Button
+        color="bg-emerald-500"
+        textWeight="font-medium"
+        textColor="text-neutral-50"
+        message="Edit profile"
+        onPress={() => handleProfileEditNavigation()}
+      />
+      <View className="flex mx-auto flex-row items-center mt-3">
+        {posts.map((post) => (
+          <Image
+            className="my-2"
+            source={{
+              uri: `http://10.0.2.2:8000/${post.image}`,
+            }}
+            key={`http://10.0.2.2:8000/${post.image}`}
+            style={{ width: 100, height: 100 }}
+            resizeMode="cover"
+          ></Image>
+        ))}
+      </View>
     </ScrollView>
   );
 };
