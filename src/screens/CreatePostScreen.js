@@ -17,7 +17,7 @@ const CreatePostScreen = () => {
   const { endUserInfo } = useContext(AuthContext);
 
   const [post, setPost] = useState({
-    enduser_id: endUserInfo.id,
+   profile_id: endUserInfo.profile_id,
     image: "",
     location: "",
     description: "",
@@ -27,7 +27,6 @@ const CreatePostScreen = () => {
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    console.log(endUserInfo.profile);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -68,7 +67,7 @@ const CreatePostScreen = () => {
     console.log(data);
 
     await fetch(
-      `http://10.0.2.2:8000/api/${endUserInfo.profile}-posts/${endUserInfo.id}/create`,
+      `http://10.0.2.2:8000/api/${endUserInfo.profile}-posts/${endUserInfo.profile_id}/create`,
       {
         method: "POST",
         headers: {
