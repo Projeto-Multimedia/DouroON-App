@@ -17,7 +17,7 @@ const CreatePostScreen = () => {
   const { endUserInfo } = useContext(AuthContext);
 
   const [post, setPost] = useState({
-   profile_id: endUserInfo.profile_id,
+    profile_id: endUserInfo.profile_id,
     image: "",
     location: "",
     description: "",
@@ -86,8 +86,8 @@ const CreatePostScreen = () => {
   };
 
   return (
-    <SafeAreaView className="bg-neutral-900 flex-1">
-      <ScrollView className="mt-8 p-5">
+    <SafeAreaView className="bg-neutral-900 flex-1 mt-8 p-5">
+      <ScrollView>
         <View className="flex flex-row justify-between items-center">
           <Text className="text-neutral-50 font-semibold text-2xl">
             New post
