@@ -23,16 +23,9 @@ export const AuthProvider = ({ children }) => {
       } else {
         setEndUserInfo(endUserInfo);
         setEndUserToken(endUserInfo.token);
-        apiProfileAccounts.getSingle(endUserInfo.id).then((res) => {
-          setEndUserInfo({
-            ...endUserInfo,
-            profile_id: res.data,
-          });
-        });
+
         AsyncStorage.setItem("endUserToken", endUserInfo.token);
         AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
-
-        console.log(endUserInfo);
       }
     });
 
@@ -60,14 +53,7 @@ export const AuthProvider = ({ children }) => {
       if (endUserInfo) {
         setEndUserToken(endUserToken);
         setEndUserInfo(endUserInfo);
- 
-        apiProfileAccounts.getSingle(endUserInfo.id).then((res) => {
-          setEndUserInfo({
-            ...endUserInfo,
-            profile_id: res.data,
-          });
-        });
-        
+
         console.log("Logged in");
       }
       setIsLoading(false);
