@@ -59,6 +59,15 @@ export const DiscoverScreen = () => {
         renderItem={({ item }) => (
           <View className="flex flex-row items-center justify-between mt-4">
             <View className="flex flex-row items-center">
+              {item.endUser.avatar ? (
+                <Image
+                  className="w-4 h-4 rounded-full"
+                  source={{ uri: item.endUser.avatar }}
+                  resizeMode="cover"
+                ></Image>
+              ) : (
+                <ActivityIndicator size="small" color="#fff" />
+              )}
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("UserProfileScreen", {
