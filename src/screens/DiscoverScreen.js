@@ -33,11 +33,13 @@ export const DiscoverScreen = () => {
 
   useEffect(() => {
     const delaySearch = setTimeout(() => {
-      apiProfileAccounts
-        .getSingle(`${search}/search/${endUserInfo.profile_id}`)
-        .then((res) => {
-          setSearchList(res.data);
-        });
+      if (search.length > 3) {
+        apiProfileAccounts
+          .getSingle(`${search}/search/${endUserInfo.profile_id}`)
+          .then((res) => {
+            setSearchList(res.data);
+          });
+      }
     }, 500);
     return () => clearTimeout(delaySearch);
   }, [search]);
