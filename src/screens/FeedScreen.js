@@ -52,7 +52,9 @@ export const FeedScreen = () => {
             <Text className="text-neutral-200 font-semibold">
               @{item.user_info.username}
             </Text>
-            <Text className="text-neutral-200">{item.description}</Text>
+            <Text className="text-neutral-200 truncate">
+              {item.description}
+            </Text>
           </View>
         </View>
       </View>
