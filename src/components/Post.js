@@ -15,7 +15,7 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         uri: `http://10.0.2.2:8000/${item.image}`,
       }}
       key={item.id}
-      opacity={0.5}
+      opacity={0.1}
     >
       <Image
         className=""
