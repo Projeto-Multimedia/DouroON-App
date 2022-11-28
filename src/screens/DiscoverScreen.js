@@ -25,14 +25,18 @@ export const DiscoverScreen = () => {
 
   const [searchList, setSearchList] = useState([]);
 
+  const { endUserInfo } = useContext(AuthContext);
+
   function handleSearch(text) {
     setSearch(text);
   }
 
   useEffect(() => {
-    apiProfileAccounts.getSingle(`${search}/search`).then((res) => {
-      setSearchList(res.data);
-    });
+    apiProfileAccounts
+      .getSingle(`${search}/search/${endUserInfo.profile_id}`)
+      .then((res) => {
+        setSearchList(res.data);
+      });
   }, [search]);
 
   return (
