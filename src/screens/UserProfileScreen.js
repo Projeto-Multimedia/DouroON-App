@@ -10,16 +10,12 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { AuthContext } from "../context/AuthContext";
-import { Ionicons } from "@expo/vector-icons";
-
 import { Button } from "../components/Button";
 
 import apiProfileAccounts from "../services/api/user_profile_api";
 
-export const ProfileScreen = () => {
+export const UserProfileScreen = ({ route }) => {
   const navigation = useNavigation();
-  const { logout, endUserInfo, setAlert } = useContext(AuthContext);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -27,15 +23,11 @@ export const ProfileScreen = () => {
 
   const [posts, setPosts] = useState([]);
 
-  const handleProfileEditNavigation = () => {
-    setAlert("");
-    navigation.navigate("EditProfileScreen");
-  };
-
   const syncProfile = () => {
+    console.log(route.params.profile_id);
     setRefreshing(true);
     apiProfileAccounts
-      .getSingle(`${endUserInfo.profile_id}/${endUserInfo.profile}-profile`)
+      .getSingle(`${route.params.profile_id}/${route.params.profile}-profile`)
       .then((res) => {
         setProfile({ ...res.data });
         setPosts([...res.data.userPosts]);
@@ -86,13 +78,6 @@ export const ProfileScreen = () => {
             <Text className="text-neutral-50 font-semibold text-2xl">
               {profile.endUser.username}
             </Text>
-            <TouchableOpacity
-              onPress={() => {
-                logout();
-              }}
-            >
-              <Ionicons name="log-out-outline" size={24} color={"#FFF"} />
-            </TouchableOpacity>
           </View>
           <Image
             className="mx-auto my-4"
@@ -130,8 +115,7 @@ export const ProfileScreen = () => {
             color="bg-emerald-500"
             textWeight="font-medium"
             textColor="text-neutral-50"
-            message="Edit profile"
-            onPress={() => handleProfileEditNavigation()}
+            message="Follow"
           />
           {posts !== null ? (
             <View className="mt-3 mx-auto">{renderPosts()}</View>
@@ -146,4 +130,4 @@ export const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+export default UserProfileScreen;

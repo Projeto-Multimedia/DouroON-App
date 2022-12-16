@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import apiEndUsers from "../services/api/end_user_api";
+import apiProfileAccounts from "../services/api/user_profile_api";
 
 export const AuthContext = createContext();
 
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (end_user) => {
     setIsLoading(true);
+
     apiEndUsers.post(end_user, "login").then((res) => {
       let endUserInfo = res.data;
 
@@ -21,10 +23,12 @@ export const AuthProvider = ({ children }) => {
       } else {
         setEndUserInfo(endUserInfo);
         setEndUserToken(endUserInfo.token);
+
         AsyncStorage.setItem("endUserToken", endUserInfo.token);
         AsyncStorage.setItem("endUserInfo", JSON.stringify(endUserInfo));
       }
     });
+
     setAlert("");
     setIsLoading(false);
   };
@@ -49,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       if (endUserInfo) {
         setEndUserToken(endUserToken);
         setEndUserInfo(endUserInfo);
+
         console.log("Logged in");
       }
       setIsLoading(false);
@@ -77,6 +82,7 @@ export const AuthProvider = ({ children }) => {
     });
     setIsLoading(false);
   };
+
   const uploadImage = async (image) => {
     await fetch(`http://10.0.2.2:8000/api/end-users/${endUserInfo.id}/upload`, {
       method: "POST",
