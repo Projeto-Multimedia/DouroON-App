@@ -67,7 +67,7 @@ export const CompanyFeedScreen = () => {
       <View className="flex flex-row justify-between px-11 absolute top-6 left-0 right-0 z-10">
         <TouchableOpacity
             onPress={() => {
-                navigation.navigate("FeedScreen");
+                navigation.navigate("HomeScreen");
             }}
         >
           <Text className="font-semibold text-2xl text-center text-neutral-50">

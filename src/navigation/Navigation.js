@@ -96,14 +96,6 @@ const Navigation = () => {
                 cardStyle: { backgroundColor: "#171717" },
               }}
             />
-            <Stack.Screen
-              name="FeedScreen"
-              component={FeedScreen}
-              options={{
-                headerShown: false,
-                cardStyle: { backgroundColor: "#171717" },
-              }}
-            />
           </>
         )}
       </Stack.Navigator>
