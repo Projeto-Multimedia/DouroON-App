@@ -33,7 +33,7 @@ export const CompanyFeedScreen = () => {
 
   const renderItem = ({ item, index }) => {
     return (
-      <View style={[{ flex: 1, height: Dimensions.get("window").height - 54 }]}>
+      <View style={[{ flex: 1, height: Dimensions.get("screen").height - 54 }]}>
         <PostSingle
           item={item}
           ref={(PostSingleRef) => (mediaRefs.current[item.id] = PostSingleRef)}
@@ -66,9 +66,9 @@ export const CompanyFeedScreen = () => {
     <SafeAreaView className="bg-neutral-900 flex-1">
       <View className="flex flex-row justify-between px-11 absolute top-6 left-0 right-0 z-10">
         <TouchableOpacity
-            onPress={() => {
-                navigation.navigate("HomeScreen");
-            }}
+        onPress={() => {
+            navigation.navigate("HomeScreen");
+        }}
         >
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             Following

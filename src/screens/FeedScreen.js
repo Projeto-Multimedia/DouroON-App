@@ -33,7 +33,7 @@ export const FeedScreen = () => {
 
   const renderItem = ({ item, index }) => {
     return (
-      <View style={[{ flex: 1, height: Dimensions.get("window").height - 54 }]}>
+      <View style={[{ flex: 1, height: Dimensions.get("screen").height - 54 }]}>
         <PostSingle
           item={item}
           ref={(PostSingleRef) => (mediaRefs.current[item.id] = PostSingleRef)}
