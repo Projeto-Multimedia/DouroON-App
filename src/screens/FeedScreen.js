@@ -12,10 +12,12 @@ import { AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 
 import PostSingle from "../components/Post";
+import { useNavigation } from "@react-navigation/native";
 
 import apiUserPosts from "../services/api/posts_api";
 
 export const FeedScreen = () => {
+  const navigation = useNavigation();
   const [posts, setPosts] = useState([]);
 
   const { endUserInfo } = useContext(AuthContext);
@@ -68,7 +70,9 @@ export const FeedScreen = () => {
             Following
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("CompanyFeedScreen")}
+        >
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             For You
           </Text>

@@ -10,12 +10,14 @@ import {
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import PostSingle from "../components/Post";
 
 import apiUserPosts from "../services/api/company_posts_api";
 
 export const CompanyFeedScreen = () => {
+    const navigation = useNavigation();
   const [posts, setPosts] = useState([]);
 
   const { endUserInfo, logout } = useContext(AuthContext);
@@ -64,6 +66,9 @@ export const CompanyFeedScreen = () => {
     <SafeAreaView className="bg-neutral-900 flex-1">
       <View className="flex flex-row justify-between px-11 absolute top-6 left-0 right-0 z-10">
         <TouchableOpacity
+            onPress={() => {
+                navigation.navigate("FeedScreen");
+            }}
         >
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             Following
