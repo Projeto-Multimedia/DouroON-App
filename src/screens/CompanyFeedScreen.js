@@ -10,21 +10,21 @@ import {
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
-
-import PostSingle from "../components/Post";
 import { useNavigation } from "@react-navigation/native";
 
-import apiUserPosts from "../services/api/posts_api";
+import PostSingle from "../components/Post";
 
-export const FeedScreen = () => {
-  const navigation = useNavigation();
+import apiUserPosts from "../services/api/company_posts_api";
+
+export const CompanyFeedScreen = () => {
+    const navigation = useNavigation();
   const [posts, setPosts] = useState([]);
 
-  const { endUserInfo } = useContext(AuthContext);
+  const { endUserInfo, logout } = useContext(AuthContext);
   const mediaRefs = useRef([]);
 
   const loadPosts = () => {
-    apiUserPosts.getSingle(`${endUserInfo.id}/follows`).then((res) => {
+    apiUserPosts.getSingle(`/`).then((res) => {
       setPosts(res.data);
     });
   };
@@ -41,21 +41,21 @@ export const FeedScreen = () => {
         <View className="flex flex-col px-8 absolute justify-center top-3/4 left-0 right-0 z-10">
           <View className="flex flex-row justify-between items-center">
             <Text className="text-neutral-50 text-xl font-semibold">
-              {item.user_info.name}
+            {item.userInfo.name}
             </Text>
             <View className="flex flex-row justify-between items-center space-x-1">
               <Ionicons color={"#e5e5e5"} name={"navigate"} size={16} />
               <Text className="text-neutral-200 font-medium">
-                {item.location}
+              {item.location}
               </Text>
             </View>
           </View>
           <View className="flex flex-col space-y-1">
             <Text className="text-neutral-200 font-semibold">
-              @{item.user_info.username}
+            @{item.userInfo.username}
             </Text>
             <Text className="text-neutral-200 truncate">
-              {item.description}
+            {item.description}
             </Text>
           </View>
         </View>
@@ -65,14 +65,16 @@ export const FeedScreen = () => {
   return (
     <SafeAreaView className="bg-neutral-900 flex-1">
       <View className="flex flex-row justify-between px-11 absolute top-6 left-0 right-0 z-10">
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => {
+            navigation.navigate("HomeScreen");
+        }}
+        >
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             Following
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("CompanyFeedScreen")}
-        >
+        <TouchableOpacity>
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             For You
           </Text>
@@ -101,4 +103,4 @@ export const FeedScreen = () => {
   );
 };
 
-export default FeedScreen;
+export default CompanyFeedScreen;

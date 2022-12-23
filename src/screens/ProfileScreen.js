@@ -38,7 +38,7 @@ export const ProfileScreen = () => {
       .getSingle(`${endUserInfo.profile_id}/${endUserInfo.profile}-profile`)
       .then((res) => {
         setProfile({ ...res.data });
-        setPosts([...res.data.userPosts]);
+        setPosts([...res.data.posts]);
       })
       .then(() => setRefreshing(false));
   };

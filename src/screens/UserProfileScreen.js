@@ -30,7 +30,7 @@ export const UserProfileScreen = ({ route }) => {
       .getSingle(`${route.params.profile_id}/${route.params.profile}-profile`)
       .then((res) => {
         setProfile({ ...res.data });
-        setPosts([...res.data.userPosts]);
+        setPosts([...res.data.posts]);
       })
       .then(() => setRefreshing(false));
   };
