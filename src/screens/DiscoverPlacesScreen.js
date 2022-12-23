@@ -18,7 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Button } from "../components/Button";
 import apiProfileAccounts from "../services/api/user_profile_api";
 
-export const DiscoverScreen = () => {
+export const DiscoverPlacesScreen = () => {
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
@@ -47,13 +47,14 @@ export const DiscoverScreen = () => {
   return (
     <SafeAreaView className="mt-8 p-5 flex-1 bg-neutral-900">
        <View className="flex flex-row justify-between px-11 absolute top-6 left-0 right-0 z-10">
-        <TouchableOpacity>
+        <TouchableOpacity
+         onPress={() => navigation.navigate("Discover")}
+        >
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             Find User
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("DiscoverPlacesScreen")}
         >
           <Text className="font-semibold text-2xl text-center text-neutral-50">
             Find Place
@@ -101,4 +102,4 @@ export const DiscoverScreen = () => {
   );
 };
 
-export default DiscoverScreen;
+export default DiscoverPlacesScreen;
