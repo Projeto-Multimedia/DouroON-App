@@ -1,6 +1,7 @@
 import React, { forwardRef, useRef } from "react";
 
-import { Image, ImageBackground } from "react-native";
+import { View, Image, ImageBackground, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export const PostSingle = forwardRef(({ item }, parentRef) => {
   const ref = useRef(null);
@@ -27,6 +28,14 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         }}
         key={item.id}
       ></Image>
+      <View className="bg-neutral-700 absolute left-[75%] top-[65%] rounded-xl py-1 px-2 flex flex-row items-center space-x-4">
+        <TouchableOpacity>
+          <Ionicons name={"heart-outline"} size={32} color={"#fff"} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Ionicons name={"chatbubble-outline"} size={32} color={"#fff"} />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 });
