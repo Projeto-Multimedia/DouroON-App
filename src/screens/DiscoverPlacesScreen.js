@@ -16,7 +16,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Button } from "../components/Button";
-import apiProfileAccounts from "../services/api/user_profile_api";
+import apiProfileAccounts from "../services/api/company_places_api";
 
 export const DiscoverPlacesScreen = () => {
   const navigation = useNavigation();
@@ -33,14 +33,16 @@ export const DiscoverPlacesScreen = () => {
 
   useEffect(() => {
     const delaySearch = setTimeout(() => {
-      if (search.length > 3) {
+      if (search.length > 1) {
         apiProfileAccounts
-          .getSingle(`${search}/search/${endUserInfo.profile_id}`)
+          .getSingle(`${search}/search/`)
           .then((res) => {
+            console.log(searchList.place.name);
             setSearchList(res.data);
           });
       }
     }, 500);
+    
     return () => clearTimeout(delaySearch);
   }, [search]);
 
@@ -75,24 +77,26 @@ export const DiscoverPlacesScreen = () => {
         renderItem={({ item }) => (
           <View className="flex flex-row items-center justify-between mt-4">
             <View className="flex flex-row items-center">
-              {item.endUser.avatar ? (
+              {item.place.image ? (
                 <Image
                   className="w-4 h-4 rounded-full"
-                  source={{ uri: item.endUser.avatar }}
+                  source={{ uri: item.place.image }}
                   resizeMode="cover"
                 ></Image>
               ) : (
                 <ActivityIndicator size="small" color="#fff" />
               )}
               <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("UserProfileScreen", {
-                    profile_id: item.id,
-                    profile: item.endUser.profile,
-                  });
-                }}
+                // onPress={() => {
+                //   navigation.navigate("UserProfileScreen", {
+                //     profile_id: item.id,
+                //     profile: item.endUser.profile,
+                //   });
+                // }}
               >
-                <Text className="text-neutral-50">{item.endUser.username}</Text>
+                <Text className="ml-3 text-neutral-100 font-semibold">
+                  {item.place.name}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
