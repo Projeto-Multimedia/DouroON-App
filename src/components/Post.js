@@ -1,4 +1,4 @@
-import React, { useContext, useState,forwardRef, useRef } from "react";
+import React, { useContext, useState, forwardRef, useRef } from "react";
 
 import { View, Image, ImageBackground, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,21 +11,12 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
   const [like, setLike] = useState(false);
 
   const handleLike = () => {
-    
-    if(like)
-    {
-      apiUserPosts.post(`${item.id}/${endUserInfo.profile_id}/like`).then((res) => {
+    apiUserPosts
+      .simplePost(`${item.id}/${endUserInfo.profile_id}/like`)
+      .then((res) => {
         console.log(res.totalLikes);
-        setLike(false);
+        like ? setLike(false) : setLike(true);
       });
-    } 
-    else {
-      apiUserPosts.post(`${item.id}/${endUserInfo.profile_id}/like`).then((res) => {
-        console.log(res.totalLikes);
-        setLike(true);
-      });
-    }
-      
   };
   return (
     <ImageBackground
