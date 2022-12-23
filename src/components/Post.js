@@ -1,11 +1,32 @@
-import React, { forwardRef, useRef } from "react";
+import React, { useContext, useState,forwardRef, useRef } from "react";
 
 import { View, Image, ImageBackground, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { AuthContext } from "../context/AuthContext";
+import apiUserPosts from "../services/api/posts_api";
 
 export const PostSingle = forwardRef(({ item }, parentRef) => {
   const ref = useRef(null);
+  const { endUserInfo } = useContext(AuthContext);
+  const [like, setLike] = useState(false);
 
+  const handleLike = () => {
+    
+    if(like)
+    {
+      apiUserPosts.post(`${item.id}/${endUserInfo.profile_id}/like`).then((res) => {
+        console.log(res.totalLikes);
+        setLike(false);
+      });
+    } 
+    else {
+      apiUserPosts.post(`${item.id}/${endUserInfo.profile_id}/like`).then((res) => {
+        console.log(res.totalLikes);
+        setLike(true);
+      });
+    }
+      
+  };
   return (
     <ImageBackground
       className="flex-1"
@@ -29,7 +50,11 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         key={item.id}
       ></Image>
       <View className="bg-neutral-700 absolute left-[75%] top-[65%] rounded-xl py-1 px-2 flex flex-row items-center space-x-4">
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            handleLike();
+          }}
+        >
           <Ionicons name={"heart-outline"} size={32} color={"#fff"} />
         </TouchableOpacity>
         <TouchableOpacity>
