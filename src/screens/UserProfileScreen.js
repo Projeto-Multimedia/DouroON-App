@@ -11,20 +11,20 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "../components/Button";
+import { AuthContext } from "../context/AuthContext";
 
 import apiProfileAccounts from "../services/api/user_profile_api";
 
 export const UserProfileScreen = ({ route }) => {
   const navigation = useNavigation();
-
+  const { endUserInfo } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
 
   const [profile, setProfile] = useState(null);
-
+  const [followed, setFollowed] = useState(false);
   const [posts, setPosts] = useState([]);
 
   const syncProfile = () => {
-    console.log(route.params.profile_id);
     setRefreshing(true);
     apiProfileAccounts
       .getSingle(`${route.params.profile_id}/${route.params.profile}-profile`)
@@ -63,6 +63,23 @@ export const UserProfileScreen = ({ route }) => {
       ));
     }
   };
+
+  const follow = async () => {
+    try
+    {
+      const res = await fetch (`http://10.0.2.2:8000/api/user-followers/${route.params.profile_id}/${endUserInfo.profile_id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      const data = await res.json();
+      console.log(data.message);
+
+    } catch (error) {
+      console.log(error);
+      }
+    }
 
   useEffect(syncProfile, []);
 
@@ -116,6 +133,7 @@ export const UserProfileScreen = ({ route }) => {
             textWeight="font-medium"
             textColor="text-neutral-50"
             message="Follow"
+            onPress={follow}
           />
           {posts !== null ? (
             <View className="mt-3 mx-auto">{renderPosts()}</View>
