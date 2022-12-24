@@ -47,7 +47,6 @@ export const DiscoverScreen = () => {
       }
       if (search.length >= minimumSearchLength && searchType) {
         apiCompanyPlaces.getSingle(`${search}/search/`).then((res) => {
-          console.log(res.data.place.name);
           setSearchList(res.data);
         });
       }
@@ -93,7 +92,7 @@ export const DiscoverScreen = () => {
               {searchType ? (
                 <TouchableOpacity>
                   <Text className="ml-3 text-neutral-100 font-semibold">
-                    {item.place.name}
+                    {item.name}
                   </Text>
                 </TouchableOpacity>
               ) : (
