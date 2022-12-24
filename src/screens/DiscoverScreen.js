@@ -39,6 +39,7 @@ export const DiscoverScreen = () => {
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       if (search.length >= minimumSearchLength && !searchType) {
+        setSearchList([]);
         apiProfileAccounts
           .getSingle(`${search}/search/${endUserInfo.profile_id}`)
           .then((res) => {
@@ -46,6 +47,7 @@ export const DiscoverScreen = () => {
           });
       }
       if (search.length >= minimumSearchLength && searchType) {
+        setSearchList([]);
         apiCompanyPlaces.getSingle(`${search}/search/`).then((res) => {
           setSearchList(res.data);
         });
@@ -59,6 +61,9 @@ export const DiscoverScreen = () => {
       <View className="flex flex-row justify-between px-11 absolute top-6 left-0 right-0 z-10">
         <TouchableOpacity
           onPress={() => {
+            setSearchList([]);
+            search ? setSearch("") && setSearchType(false) :
+            setSearchList([]);
             setSearchType(false);
           }}
         >
@@ -68,6 +73,9 @@ export const DiscoverScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
+            setSearchList([]);
+            search ? setSearch("") && setSearchType(true) : 
+            setSearchList([]);
             setSearchType(true);
           }}
         >
