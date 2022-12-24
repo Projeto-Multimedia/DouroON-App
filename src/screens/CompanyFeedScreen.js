@@ -41,7 +41,7 @@ export const CompanyFeedScreen = () => {
         <View className="flex flex-col px-8 absolute justify-center top-3/4 left-0 right-0 z-10">
           <View className="flex flex-row justify-between items-center">
             <Text className="text-neutral-50 text-xl font-semibold">
-            {item.userInfo.name}
+            {item.user_info.name}
             </Text>
             <View className="flex flex-row justify-between items-center space-x-1">
               <Ionicons color={"#e5e5e5"} name={"navigate"} size={16} />
@@ -52,7 +52,7 @@ export const CompanyFeedScreen = () => {
           </View>
           <View className="flex flex-col space-y-1">
             <Text className="text-neutral-200 font-semibold">
-            @{item.userInfo.username}
+            @{item.user_info.username}
             </Text>
             <Text className="text-neutral-200 truncate">
             {item.description}
