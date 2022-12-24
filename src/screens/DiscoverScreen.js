@@ -98,7 +98,13 @@ export const DiscoverScreen = () => {
           <View className="flex flex-row items-center justify-between mt-4">
             <View className="flex flex-row items-center">
               {searchType ? (
-                <TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("PlaceScreen", {
+                    place_id: item.id,
+                  });
+                }}
+                >
                   <Text className="ml-3 text-neutral-100 font-semibold">
                     {item.name}
                   </Text>

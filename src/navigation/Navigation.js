@@ -12,6 +12,7 @@ import ProfileSetup from "../screens/auth/ProfileSetup";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import CompanyFeedScreen from "../screens/CompanyFeedScreen";
+import PlaceScreen from "../screens/PlaceScreen";
 
 const Stack = createStackNavigator();
 
@@ -90,6 +91,14 @@ const Navigation = () => {
             <Stack.Screen
               name="CompanyFeedScreen"
               component={CompanyFeedScreen}
+              options={{
+                headerShown: false,
+                cardStyle: { backgroundColor: "#171717" },
+              }}
+            />
+            <Stack.Screen
+              name="PlaceScreen"
+              component={PlaceScreen}
               options={{
                 headerShown: false,
                 cardStyle: { backgroundColor: "#171717" },
