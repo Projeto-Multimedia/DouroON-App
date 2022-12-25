@@ -21,7 +21,7 @@ export const UserProfileScreen = ({ route }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const [profile, setProfile] = useState(null);
-  const [followed, setFollowed] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [posts, setPosts] = useState([]);
 
   const syncProfile = () => {
@@ -65,21 +65,24 @@ export const UserProfileScreen = ({ route }) => {
   };
 
   const follow = async () => {
-    try
-    {
-      const res = await fetch (`http://10.0.2.2:8000/api/user-followers/${route.params.profile_id}/${endUserInfo.profile_id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
+    try {
+      const res = await fetch(
+        `http://10.0.2.2:8000/api/user-followers/${route.params.profile_id}/${endUserInfo.profile_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
       const data = await res.json();
       console.log(data.message);
-
+      setIsFollowing(data.isfollowing);
+      syncProfile();
     } catch (error) {
       console.log(error);
-      }
     }
+  };
 
   useEffect(syncProfile, []);
 
@@ -129,10 +132,10 @@ export const UserProfileScreen = ({ route }) => {
             </View>
           </View>
           <Button
-            color="bg-emerald-500"
+            color={isFollowing ? "bg-neutral-700" : "bg-emerald-500"}
             textWeight="font-medium"
             textColor="text-neutral-50"
-            message="Follow"
+            message={isFollowing ? "Unfollow" : "Follow"}
             onPress={follow}
           />
           {posts !== null ? (
