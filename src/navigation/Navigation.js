@@ -11,7 +11,6 @@ import SignIn from "../screens/auth/SignIn";
 import ProfileSetup from "../screens/auth/ProfileSetup";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
-import CompanyFeedScreen from "../screens/CompanyFeedScreen";
 import PlaceScreen from "../screens/PlaceScreen";
 
 const Stack = createStackNavigator();
@@ -83,14 +82,6 @@ const Navigation = () => {
             <Stack.Screen
               name="UserProfileScreen"
               component={UserProfileScreen}
-              options={{
-                headerShown: false,
-                cardStyle: { backgroundColor: "#171717" },
-              }}
-            />
-            <Stack.Screen
-              name="CompanyFeedScreen"
-              component={CompanyFeedScreen}
               options={{
                 headerShown: false,
                 cardStyle: { backgroundColor: "#171717" },
