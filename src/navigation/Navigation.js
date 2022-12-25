@@ -100,8 +100,11 @@ const Navigation = () => {
               name="PlaceScreen"
               component={PlaceScreen}
               options={{
-                headerShown: false,
+                headerShown: true,
                 cardStyle: { backgroundColor: "#171717" },
+                headerStyle: { backgroundColor: "#171717" },
+                headerTintColor: "#fff",
+                title: "Places",
               }}
             />
           </>
