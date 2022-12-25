@@ -1,6 +1,18 @@
-import React, { useContext, useState, forwardRef, useRef, useEffect } from "react";
+import React, {
+  useContext,
+  useState,
+  forwardRef,
+  useRef,
+  useEffect,
+} from "react";
 
-import { View, Image, ImageBackground, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthContext } from "../context/AuthContext";
 
@@ -10,15 +22,18 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
   const [like, setLike] = useState(false);
 
   const handleLike = async () => {
-    try 
-    {
-      const res = await fetch(`http://10.0.2.2:8000/api/${item.user_info.profile}-posts/${item.id}/${endUserInfo.profile_id}/like`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const res = await fetch(
+        `http://10.0.2.2:8000/api/${item.user_info.profile}-posts/${item.id}/${endUserInfo.profile_id}/like`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
       const data = await res.json();
+      setLike(data.isLiked);
       console.log(item);
     } catch (error) {
       console.log(error);
@@ -53,8 +68,11 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
             handleLike();
           }}
         >
-          <Ionicons name={"heart-outline"} size={32} color={"#fff"} />
-          <Text className="text-neutral-50 font-semibold">{item.likes}</Text>
+          <Ionicons
+            name={like ? "heart" : "heart-outline"}
+            size={32}
+            color={like ? "#10B981" : "#fff"}
+          />
         </TouchableOpacity>
         <TouchableOpacity>
           <Ionicons name={"chatbubble-outline"} size={32} color={"#fff"} />
