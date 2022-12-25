@@ -8,7 +8,6 @@ import ProfileScreen from "./ProfileScreen";
 import FeedScreen from "./FeedScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import DiscoverScreen from "./DiscoverScreen";
-import CompanyFeedScreen from "./CompanyFeedScreen";
 
 const HomeScreen = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -24,7 +23,6 @@ const HomeScreen = () => {
       barStyle={{ backgroundColor: "black" }}
       initialRouteName="feed"
     >
-
       <Tab.Screen
         name="Home"
         component={FeedScreen}

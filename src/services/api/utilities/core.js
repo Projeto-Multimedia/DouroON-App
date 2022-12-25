@@ -1,6 +1,6 @@
 // core.js
 
-import { apiProvider } from './provider';
+import { apiProvider } from "./provider";
 
 export class ApiCore {
   constructor(options) {
@@ -19,6 +19,12 @@ export class ApiCore {
     if (options.post) {
       this.post = (model, optional) => {
         return apiProvider.post(options.url, model, optional);
+      };
+    }
+
+    if (options.simplePost) {
+      this.simplePost = () => {
+        return apiProvider.simplePost(options.url);
       };
     }
 
