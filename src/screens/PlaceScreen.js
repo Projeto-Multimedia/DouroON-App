@@ -6,6 +6,10 @@ import {
   RefreshControl,
   SafeAreaView,
   ActivityIndicator,
+  Modal,
+  Pressable, 
+  StyleSheet,
+  TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button } from "../components/Button";
@@ -16,6 +20,7 @@ import apiCompanyPlaces from "../services/api/company_places_api";
 
 export const PlaceScreen = ({ route }) => {
   const [refreshing, setRefreshing] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [profile, setProfile] = useState(null);
 
@@ -28,6 +33,40 @@ export const PlaceScreen = ({ route }) => {
       })
       .then(() => setRefreshing(false));
   };
+
+  //create a function to change the modal visibility when TouchableOpacity is pressed
+  const ModalVisible = (visible) => {
+    setModalVisible(visible);
+  };
+
+  //create a return view to display the modal
+  const ModalView = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+      >
+        <View style={styles.modalContent}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Select a Route Path</Text>
+            <Pressable
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.title}>X</Text>
+            </Pressable>
+          </View>
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <TextInput
+              style={{height: 40, width: 200, borderColor: 'gray', borderWidth: 1}}
+              placeholder="Enter Route Name"
+            />
+           </View>
+        </View>
+      </Modal>
+    );
+  };
+
 
   useEffect(syncProfile, []);
 
@@ -60,11 +99,15 @@ export const PlaceScreen = ({ route }) => {
           <View className="mt-3 flex flex-row justify-center">
             <Text className="text-neutral-300">{profile.address}</Text>
           </View>
-          <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2">
+         { modalVisible ? <ModalView /> : null}
+          <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2"
+                            onPress={() => ModalVisible(true)}
+          >
             <Text className="text-neutral-50 font-medium text-center text-xl">
               Save Location
             </Text>
           </TouchableOpacity>
+
         </ScrollView>
       ) : (
         <ActivityIndicator className="flex-1 justify-center" size="large" />
@@ -73,4 +116,32 @@ export const PlaceScreen = ({ route }) => {
   );
 };
 
+const styles = StyleSheet.create({
+  modalContent: {
+    height: '25%',
+    width: '100%',
+    backgroundColor: '#25292e',
+    borderTopRightRadius: 18,
+    borderTopLeftRadius: 18,
+    position: 'absolute',
+    bottom: 0,
+  },
+  titleContainer: {
+    height: '16%',
+    backgroundColor: '#464C55',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});
+
 export default PlaceScreen;
+
+
