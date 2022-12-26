@@ -33,8 +33,9 @@ export const PlaceScreen = ({ route }) => {
   };
 
  function addRoute(userRoute) {
-    apiUserRoutes.post(userRoute, "create").then((res) => {
+    apiUserRoutes.post(userRoute, `${endUserInfo.profile_id}/create`).then((res) => {
         let arr = res;
+        console.log(arr);
         setUserRoute(arr);
       })  
   }
