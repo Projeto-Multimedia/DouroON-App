@@ -5,6 +5,8 @@ import { Button } from "../components/Button";
 import { TouchableOpacity } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
+import DropDownPicker from "react-native-dropdown-picker";
+
 import apiCompanyPlaces from "../services/api/company_places_api";
 import apiUserRoutes from "../services/api/user_routes_api";
 
@@ -20,6 +22,14 @@ export const PlaceScreen = ({ route }) => {
     route_name: '',
     profile_id: endUserInfo.profile_id,
   });
+
+  const [allUserRoutes, setAllUserRoutes] = useState([]);
+  const [dropdown, setDropdown] = useState(false);
+  const [choosenRoute, setChoosenRoute] = useState(null);
+
+  const dropdownOpen = () => {
+    setDropdown(true);
+  };
   const syncProfile = () => {
     setRefreshing(true);
     apiCompanyPlaces.getSingle(`${route.params.place_id}`).then((res) => {
@@ -40,6 +50,20 @@ export const PlaceScreen = ({ route }) => {
       })  
   }
 
+  const getAllUserRoutes = () => {
+    setDropdown(true);
+    apiUserRoutes.getSingle(`${endUserInfo.profile_id}/routes`).then((res) => {
+        let arr = res;
+        console.log(arr.data);
+        setAllUserRoutes(arr.data);
+
+      })
+  }
+
+  const savePlace = () => {
+    console.log("choosenRoute", choosenRoute);
+  }
+
   const ModalView = () => {
     return (
       <Modal
@@ -56,7 +80,7 @@ export const PlaceScreen = ({ route }) => {
               <Text style={styles.title}>X</Text>
             </Pressable>
           </View>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+          {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
             <TextInput
               style={{height: 40, width: 200, borderColor: 'white', borderWidth: 1, 
               color: 'white', borderRadius: 10, paddingHorizontal: 10, marginRight: 10}}
@@ -72,7 +96,34 @@ export const PlaceScreen = ({ route }) => {
                 Add Route
               </Text>
             </TouchableOpacity>
-           </View>
+           </View> */}
+           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+           <DropDownPicker
+              items={allUserRoutes.map((item) => ({label: item.route_name, value: item.id}))}
+              placeholder="Select a Route"
+              defaultValue={choosenRoute}
+              open = {dropdown}
+              onOpen = {getAllUserRoutes}
+              setValue = {setChoosenRoute}
+              setItems = {setAllUserRoutes}
+              onClose = {() => setDropdown(false)}
+              containerStyle={{height: 40, width: 200,
+              color: 'white', borderRadius: 10, paddingHorizontal: 10, marginRight: 10}}
+              style={{backgroundColor: '#fafafa'}}
+              itemStyle={{
+                  justifyContent: 'flex-start'
+              }}
+              dropDownStyle={{backgroundColor: '#fafafa'}}
+              onChangeItem={item => setChoosenRoute(item)}
+            />
+            <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2"
+                            onPress={() => savePlace()}    
+            >
+              <Text className="text-neutral-50 font-medium text-center text-xl">
+                Save Place
+              </Text>
+            </TouchableOpacity>
+            </View>
         </View>
       </Modal>
     );
@@ -112,7 +163,7 @@ export const PlaceScreen = ({ route }) => {
           </View>
          { modalVisible ? <ModalView /> : null}
           <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2"
-                            onPress={() => ModalVisible(true)}
+                            onPress={() => ModalVisible(true)} 
           >
             <Text className="text-neutral-50 font-medium text-center text-xl">
               Save Location
@@ -129,7 +180,7 @@ export const PlaceScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   modalContent: {
-    height: '25%',
+    height: '50%',
     width: '100%',
     backgroundColor: '#25292e',
     borderTopRightRadius: 18,
