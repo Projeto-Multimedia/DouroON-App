@@ -27,9 +27,6 @@ export const PlaceScreen = ({ route }) => {
   const [dropdown, setDropdown] = useState(false);
   const [choosenRoute, setChoosenRoute] = useState(null);
 
-  const dropdownOpen = () => {
-    setDropdown(true);
-  };
   const syncProfile = () => {
     setRefreshing(true);
     apiCompanyPlaces.getSingle(`${route.params.place_id}`).then((res) => {
@@ -56,12 +53,25 @@ export const PlaceScreen = ({ route }) => {
         let arr = res;
         console.log(arr.data);
         setAllUserRoutes(arr.data);
-
       })
   }
 
-  const savePlace = () => {
-    console.log("choosenRoute", choosenRoute);
+  const savePlace = async () => {
+    try {
+      const res = await fetch(
+        `http://10.0.2.2:8000/api/save-places/${endUserInfo.profile_id}/${choosenRoute}/${route.params.place_id}/save`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const ModalView = () => {
