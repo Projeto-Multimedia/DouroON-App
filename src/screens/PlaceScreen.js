@@ -9,6 +9,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 import apiCompanyPlaces from "../services/api/company_places_api";
 import apiUserRoutes from "../services/api/user_routes_api";
+import apiSavePlace from "../services/api/save_places_api";
 
 export const PlaceScreen = ({ route }) => {
 
@@ -40,6 +41,7 @@ export const PlaceScreen = ({ route }) => {
   };
 
  function addRoute(userRoute) {
+    
     apiUserRoutes.post(userRoute, `${endUserInfo.profile_id}/create`).then((res) => {
         let arr = res;
         console.log(arr);
@@ -56,22 +58,12 @@ export const PlaceScreen = ({ route }) => {
       })
   }
 
-  const savePlace = async () => {
-    try {
-      const res = await fetch(
-        `http://10.0.2.2:8000/api/save-places/${endUserInfo.profile_id}/${choosenRoute}/${route.params.place_id}/save`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const savePlace = () => {
+    apiSavePlace.post({place_id: route.params.place_id, route_id: choosenRoute}, `${endUserInfo.profile_id}/save`).then((res) => {
+        let arr = res;
+        console.log(arr.message);
+      }
+    )
   }
 
   const ModalView = () => {
@@ -90,7 +82,7 @@ export const PlaceScreen = ({ route }) => {
               <Text style={styles.title}>X</Text>
             </Pressable>
           </View>
-          {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
             <TextInput
               style={{height: 40, width: 200, borderColor: 'white', borderWidth: 1, 
               color: 'white', borderRadius: 10, paddingHorizontal: 10, marginRight: 10}}
@@ -106,7 +98,7 @@ export const PlaceScreen = ({ route }) => {
                 Add Route
               </Text>
             </TouchableOpacity>
-           </View> */}
+           </View>
            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
            <DropDownPicker
               items={allUserRoutes.map((item) => ({label: item.route_name, value: item.id}))}
