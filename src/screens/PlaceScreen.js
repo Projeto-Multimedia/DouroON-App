@@ -1,4 +1,16 @@
-import {Text, ScrollView,View,Image,RefreshControl,SafeAreaView,ActivityIndicator,Modal,Pressable, StyleSheet,TextInput,} from "react-native";
+import {
+  Text,
+  ScrollView,
+  View,
+  Image,
+  RefreshControl,
+  SafeAreaView,
+  ActivityIndicator,
+  Modal,
+  Pressable,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../components/Button";
 
@@ -12,7 +24,6 @@ import apiUserRoutes from "../services/api/user_routes_api";
 import apiSavePlace from "../services/api/save_places_api";
 
 export const PlaceScreen = ({ route }) => {
-
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -20,7 +31,7 @@ export const PlaceScreen = ({ route }) => {
 
   const { endUserInfo } = useContext(AuthContext);
   const [userRoute, setUserRoute] = useState({
-    route_name: '',
+    route_name: "",
     profile_id: endUserInfo.profile_id,
   });
 
@@ -30,7 +41,9 @@ export const PlaceScreen = ({ route }) => {
 
   const syncProfile = () => {
     setRefreshing(true);
-    apiCompanyPlaces.getSingle(`${route.params.place_id}`).then((res) => {
+    apiCompanyPlaces
+      .getSingle(`${route.params.place_id}`)
+      .then((res) => {
         setProfile(res.data);
       })
       .then(() => setRefreshing(false));
@@ -40,97 +53,130 @@ export const PlaceScreen = ({ route }) => {
     setModalVisible(visible);
   };
 
- function addRoute(userRoute) {
-    
-    apiUserRoutes.post(userRoute, `${endUserInfo.profile_id}/create`).then((res) => {
+  function addRoute(userRoute) {
+    apiUserRoutes
+      .post(userRoute, `${endUserInfo.profile_id}/create`)
+      .then((res) => {
         let arr = res;
         console.log(arr);
         setUserRoute(arr);
-      })  
+      });
   }
 
   const getAllUserRoutes = () => {
     setDropdown(true);
     apiUserRoutes.getSingle(`${endUserInfo.profile_id}/routes`).then((res) => {
-        let arr = res;
-        console.log(arr.data);
-        setAllUserRoutes(arr.data);
-      })
-  }
+      let arr = res;
+      console.log(arr.data);
+      setAllUserRoutes(arr.data);
+    });
+  };
 
   const savePlace = () => {
-    apiSavePlace.post({place_id: route.params.place_id, route_id: choosenRoute}, `${endUserInfo.profile_id}/save`).then((res) => {
+    apiSavePlace
+      .post(
+        { place_id: route.params.place_id, route_id: choosenRoute },
+        `${endUserInfo.profile_id}/save`,
+      )
+      .then((res) => {
         let arr = res;
         console.log(arr.message);
-      }
-    )
-  }
+      });
+  };
 
   const ModalView = () => {
     return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-      >
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.modalContent}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Select a Route Path</Text>
-            <Pressable
-              onPress={() => setModalVisible(!modalVisible)}
-            >
+            <Pressable onPress={() => setModalVisible(!modalVisible)}>
               <Text style={styles.title}>X</Text>
             </Pressable>
           </View>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
             <TextInput
-              style={{height: 40, width: 200, borderColor: 'white', borderWidth: 1, 
-              color: 'white', borderRadius: 10, paddingHorizontal: 10, marginRight: 10}}
+              style={{
+                height: 40,
+                width: 200,
+                borderColor: "white",
+                borderWidth: 1,
+                color: "white",
+                borderRadius: 10,
+                paddingHorizontal: 10,
+                marginRight: 10,
+              }}
               placeholder="Enter Route Name"
               placeholderTextColor="white"
               value={userRoute.route_name}
-              onChangeText={(route_name) => setUserRoute({...userRoute, route_name})}
+              onChangeText={(route_name) =>
+                setUserRoute({ ...userRoute, route_name })
+              }
             />
-            <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2"
-                            onPress={() => addRoute(userRoute)} 
+            <TouchableOpacity
+              className="bg-emerald-500 rounded-lg px-4 py-2"
+              onPress={() => addRoute(userRoute)}
             >
               <Text className="text-neutral-50 font-medium text-center text-xl">
                 Add Route
               </Text>
             </TouchableOpacity>
-           </View>
-           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-           <DropDownPicker
-              items={allUserRoutes.map((item) => ({label: item.route_name, value: item.id}))}
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <DropDownPicker
+              items={allUserRoutes.map((item) => ({
+                label: item.route_name,
+                value: item.id,
+              }))}
               placeholder="Select a Route"
               defaultValue={choosenRoute}
-              open = {dropdown}
-              onOpen = {getAllUserRoutes}
-              setValue = {setChoosenRoute}
-              setItems = {setAllUserRoutes}
-              onClose = {() => setDropdown(false)}
-              containerStyle={{height: 40, width: 200,
-              color: 'white', borderRadius: 10, paddingHorizontal: 10, marginRight: 10}}
-              style={{backgroundColor: '#fafafa'}}
-              itemStyle={{
-                  justifyContent: 'flex-start'
+              open={dropdown}
+              onOpen={getAllUserRoutes}
+              setValue={setChoosenRoute}
+              setItems={setAllUserRoutes}
+              onClose={() => setDropdown(false)}
+              containerStyle={{
+                height: 40,
+                width: 200,
+                color: "white",
+                borderRadius: 10,
+                paddingHorizontal: 10,
+                marginRight: 10,
               }}
-              dropDownStyle={{backgroundColor: '#fafafa'}}
-              onChangeItem={item => setChoosenRoute(item)}
+              style={{ backgroundColor: "#fafafa" }}
+              itemStyle={{
+                justifyContent: "flex-start",
+              }}
+              dropDownStyle={{ backgroundColor: "#fafafa" }}
+              onChangeItem={(item) => setChoosenRoute(item)}
             />
-            <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2"
-                            onPress={() => savePlace()}    
+            <TouchableOpacity
+              className="bg-emerald-500 rounded-lg px-4 py-2"
+              onPress={() => savePlace()}
             >
               <Text className="text-neutral-50 font-medium text-center text-xl">
                 Save Place
               </Text>
             </TouchableOpacity>
-            </View>
+          </View>
         </View>
       </Modal>
     );
   };
-
 
   useEffect(syncProfile, []);
 
@@ -163,15 +209,15 @@ export const PlaceScreen = ({ route }) => {
           <View className="mt-3 flex flex-row justify-center">
             <Text className="text-neutral-300">{profile.address}</Text>
           </View>
-         { modalVisible ? <ModalView /> : null}
-          <TouchableOpacity className="bg-emerald-500 rounded-lg px-4 py-2"
-                            onPress={() => ModalVisible(true)} 
+          {modalVisible ? <ModalView /> : null}
+          <TouchableOpacity
+            className="bg-emerald-500 rounded-lg px-4 py-2"
+            onPress={() => ModalVisible(true)}
           >
             <Text className="text-neutral-50 font-medium text-center text-xl">
               Save Location
             </Text>
           </TouchableOpacity>
-
         </ScrollView>
       ) : (
         <ActivityIndicator className="flex-1 justify-center" size="large" />
@@ -182,30 +228,28 @@ export const PlaceScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   modalContent: {
-    height: '50%',
-    width: '100%',
-    backgroundColor: '#25292e',
+    height: "50%",
+    width: "100%",
+    backgroundColor: "#25292e",
     borderTopRightRadius: 18,
     borderTopLeftRadius: 18,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
   },
   titleContainer: {
-    height: '16%',
-    backgroundColor: '#464C55',
+    height: "16%",
+    backgroundColor: "#464C55",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   title: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
 });
 
 export default PlaceScreen;
-
-
