@@ -12,6 +12,7 @@ import ProfileSetup from "../screens/auth/ProfileSetup";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import PlaceScreen from "../screens/PlaceScreen";
+import RoutesScreen from "../screens/RoutesScreen";
 
 const Stack = createStackNavigator();
 
@@ -96,6 +97,17 @@ const Navigation = () => {
                 headerStyle: { backgroundColor: "#171717" },
                 headerTintColor: "#fff",
                 title: "Places",
+              }}
+            />
+            <Stack.Screen
+              name="RoutesScreen"
+              component={RoutesScreen}
+              options={{
+                headerShown: true,
+                cardStyle: { backgroundColor: "#171717" },
+                headerStyle: { backgroundColor: "#171717" },
+                headerTintColor: "#fff",
+                title: "Routes",
               }}
             />
           </>
