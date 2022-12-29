@@ -13,6 +13,7 @@ import EditProfileScreen from "../screens/EditProfileScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import PlaceScreen from "../screens/PlaceScreen";
 import RoutesScreen from "../screens/RoutesScreen";
+import SpecificRouteScreen from "../screens/SpecificRouteScreen";
 
 const Stack = createStackNavigator();
 
@@ -108,6 +109,17 @@ const Navigation = () => {
                 headerStyle: { backgroundColor: "#171717" },
                 headerTintColor: "#fff",
                 title: "Routes",
+              }}
+            />
+            <Stack.Screen
+              name="SpecificRouteScreen"
+              component={SpecificRouteScreen}
+              options={{
+                headerShown: true,
+                cardStyle: { backgroundColor: "#171717" },
+                headerStyle: { backgroundColor: "#171717" },
+                headerTintColor: "#fff",
+                title: "Route",
               }}
             />
           </>
