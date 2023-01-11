@@ -32,6 +32,11 @@ export const ProfileScreen = () => {
     navigation.navigate("EditProfileScreen");
   };
 
+  const handleProfileRoutesNavigation = () => {
+    setAlert("");
+    navigation.navigate("RoutesScreen");
+  };
+
   const syncProfile = () => {
     setRefreshing(true);
     apiProfileAccounts
@@ -126,13 +131,22 @@ export const ProfileScreen = () => {
               <Text className="text-neutral-300">Following</Text>
             </View>
           </View>
-          <Button
-            color="bg-emerald-500"
-            textWeight="font-medium"
-            textColor="text-neutral-50"
-            message="Edit profile"
-            onPress={() => handleProfileEditNavigation()}
-          />
+          <View className="flex flex-row justify-between mx-auto">
+            <Button
+              color="bg-emerald-500"
+              textWeight="font-medium"
+              textColor="text-neutral-50"
+              message="Edit profile"
+              onPress={() => handleProfileEditNavigation()}
+            />
+            <Button
+              color="bg-emerald-500"
+              textWeight="font-medium"
+              textColor="text-neutral-50"
+              message="Locations"
+              onPress={() => handleProfileRoutesNavigation()}
+            />
+          </View>
           {posts !== null ? (
             <View className="mt-3 mx-auto">{renderPosts()}</View>
           ) : (
