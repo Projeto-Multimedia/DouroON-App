@@ -131,7 +131,7 @@ export const ProfileScreen = () => {
               <Text className="text-neutral-300">Following</Text>
             </View>
           </View>
-          <View className="flex flex-row justify-between mx-auto">
+          <View >
             <Button
               color="bg-emerald-500"
               textWeight="font-medium"
