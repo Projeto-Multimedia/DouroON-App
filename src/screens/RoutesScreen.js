@@ -42,7 +42,7 @@ export const RoutesScreen = () => {
               <Pressable
                 onPress={() => {
                   navigation.navigate("SpecificRouteScreen", {
-                    route_id: item.route_id,
+                    route_id: item.id,
                   });
                 }}
               >
